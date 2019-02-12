@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="naver-site-verification" content="ee028044c5e9da73dd80dcf1c6286530dc9b5344"/>
+
+    
+
+    
+    <title>How break statement breaks break statement | ENvironmentSet</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="JavaScript,TMI" />
+    
+    <meta name="description" content="최근에, 어떤 분의 프로그램을 고쳐드리면서 매우 재미있는 코드를 보았었습니다. 123456something: &amp;#123;  ...   if(status === false)    break something;  else ... &amp;#125; 오, 이런. 저도 자주 보지 못한 코드이기에 스타일을 지적하기 전에 실행을 시켜보았었습니다.  세상에, 잘 작동합니다.">
+<meta name="keywords" content="JavaScript,TMI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How break statement breaks break statement">
+<meta property="og:url" content="https://environmentset.github.io/2018/06/22/How-break-statement-break-statement/index.html">
+<meta property="og:site_name" content="ENvironmentSet">
+<meta property="og:description" content="최근에, 어떤 분의 프로그램을 고쳐드리면서 매우 재미있는 코드를 보았었습니다. 123456something: &amp;#123;  ...   if(status === false)    break something;  else ... &amp;#125; 오, 이런. 저도 자주 보지 못한 코드이기에 스타일을 지적하기 전에 실행을 시켜보았었습니다.  세상에, 잘 작동합니다.">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://environmentset.github.io/images/How-break-statement-break-statement/block-statement-test.png">
+<meta property="og:updated_time" content="2019-02-12T08:51:11.355Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How break statement breaks break statement">
+<meta name="twitter:description" content="최근에, 어떤 분의 프로그램을 고쳐드리면서 매우 재미있는 코드를 보았었습니다. 123456something: &amp;#123;  ...   if(status === false)    break something;  else ... &amp;#125; 오, 이런. 저도 자주 보지 못한 코드이기에 스타일을 지적하기 전에 실행을 시켜보았었습니다.  세상에, 잘 작동합니다.">
+<meta name="twitter:image" content="https://environmentset.github.io/images/How-break-statement-break-statement/block-statement-test.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131792068-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">I LOVE JavaScript</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Notice/">Notice</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="뭔가를 입력하세요...!" />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: '페이지들',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(무제)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-How-break-statement-break-statement" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        How break statement breaks break statement
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/06/22/How-break-statement-break-statement/" class="article-date">
+            <time datetime="2018-06-22T10:32:00.000Z" itemprop="datePublished">2018-06-22</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/TMI/">TMI</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>최근에, 어떤 분의 프로그램을 고쳐드리면서 매우 재미있는 코드를 보았었습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">something: &#123;</span><br><span class="line">  ... </span><br><span class="line">  <span class="keyword">if</span>(status === <span class="literal">false</span>)</span><br><span class="line">    <span class="keyword">break</span> something;</span><br><span class="line">  <span class="keyword">else</span> ... </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>오, 이런. 저도 자주 보지 못한 코드이기에 스타일을 지적하기 전에 실행을 시켜보았었습니다.</p>
+<p><img src="/images/How-break-statement-break-statement/block-statement-test.png" alt="block statement test"></p>
+<p>세상에, 잘 작동합니다. 진짜 Block 문이 멈추어 버렸어요!</p>
+<p>늘 그렇듯이, 까닭이 궁금했던 저는 바로 명세서를 뒤적거리기 시작했습니다.<br>그리고 자바스크립트의 명세서의 <strong>13.13.14 Runtime Semantics: LabelledEvaluation</strong> 에서 그 이유를 찾을 수 있었습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. Let label be the StringValue of LabelIdentifier.</span><br><span class="line">2. Append label as an element of labelSet.</span><br><span class="line">3. Let stmtResult be LabelledEvaluation of LabelledItem with argument labelSet.</span><br><span class="line">4. If stmtResult.[[Type]] is break and SameValue(stmtResult.[[Target]], label) is true, then</span><br><span class="line">  a. Set stmtResult to NormalCompletion(stmtResult.[[Value]]).</span><br><span class="line">5. Return Completion(stmtResult).</span><br></pre></td></tr></table></figure>
+<p>명세서를 읽을 줄 모르시는 분들을 위해, 간략하게 요약해 보자면.</p>
+<p>Label이 달린 구문을 실행한 후, 그 결과가 자신을 대상으로 하는 break라면 그 break를 제어하여 오류가 발생하지 않게 막는다.<br>(자바스크립트의 명세서에서는 스크립트의 실행 결과가 break, return, continue, throw 라면 구현체에서 오류를 발생시키도록 명시하고 있습니다. 그래서 함수 객체를 실행시키는 [[Call]] 메서드 등을 보면 return을 normal(유일하게 오류를 일으키지 않는 결과)로 바꾸지요. 여기서도 마찬가자입니다.)</p>
+<p>할 이야기는 전부 한 거 같으니, 간단한  Q&amp;A를 진행하고 이만 마치도록 하겠습니다. 봐주셔서 감사합니다 :)</p>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: if 문에서도 사용 가능하나요?<br>A: 네, 됩니다.</p>
+<p>Q: 많은 코드의 for 문, switch 문, while 문 등을 보면 대상을 지정하지 않는 break 를 사용하는 경우가 있는데 그 경우는 어디서 처리하나요?<br>A: 13.1.7 Runtime Semantics: LabelledEvaluation 에서 명시하고 있습니다. 간략하게 말씀드리자면 그 경우들은 가장 가까운 Breakable 문(switch, for, while 등)이 처리합니다.</p>
+<p>Q: 좋은 방식인가요?<br>A: 제 주관적인 생각으로는 안티 패턴이라고 생각합니다. break로 구문의 진행을 저지해야 하는 경우를 생각해보면 전부 함수로 프로세스를 추상화하고 이들을 조합하는 방식으로 해결할 수 있고, 이 방법이 유지 보수 면에서 더 나은 방식이라고 생각합니다.</p>
+<p><a href="https://www.ecma-international.org/publications/standards/Ecma-262.htm" target="_blank" rel="noopener">Reference</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://environmentset.github.io/2018/06/22/How-break-statement-break-statement/" data-id="cjs1mdc3e001bbxjy56nehuyu" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100015357423292" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ENvironmentSet" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/07/01/introduce/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">새로운</strong>
+        <p class="article-nav-title">
+        
+            Who am I?
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/06/11/Two-face-of-identifier/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">오래된</strong>
+        <p class="article-nav-title">Two face of identifier</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">최근 글</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Learn-you-a-React-for-good-preface/React.png)" alt="Learn you a React for good - preface" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></p>
+                            <p class="item-title"><a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="title">Learn you a React for good - preface</a></p>
+                            <p class="item-date"><time datetime="2019-02-12T10:11:32.000Z" itemprop="datePublished">2019-02-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png)" alt="You don&#39;t know everything of arguments object" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="title">You don&#39;t know everything of arguments object</a></p>
+                            <p class="item-date"><time datetime="2019-01-31T14:20:13.000Z" itemprop="datePublished">2019-01-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/be-reactive.jpg)" alt="objectel: Event-Driven Reactive Programming Library" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="title">objectel: Event-Driven Reactive Programming Library</a></p>
+                            <p class="item-date"><time datetime="2019-01-16T16:32:14.000Z" itemprop="datePublished">2019-01-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/06/Stop-using-CSS-with-React/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/stop-using-css-with-react.jpeg)" alt="Stop using CSS with React" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/06/Stop-using-CSS-with-React/" class="title">Stop using CSS with React</a></p>
+                            <p class="item-date"><time datetime="2019-01-05T15:20:04.000Z" itemprop="datePublished">2019-01-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/23/My-Old-Blog/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/09/23/My-Old-Blog/" class="title">My Old Blog</a></p>
+                            <p class="item-date"><time datetime="2018-09-22T18:35:50.000Z" itemprop="datePublished">2018-09-23</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">카테고리</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notice/">Notice</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">1월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">9월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">6월 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">태그</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Driven-programming/">Event Driven programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functional-programming/">Functional programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notice/">Notice</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-programming/">Reactive programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TMI/">TMI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anti-pattern/">anti-pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/objectel/">objectel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proposal/">proposal</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Event-Driven-programming/" style="font-size: 10px;">Event Driven programming</a> <a href="/tags/Functional-programming/" style="font-size: 10px;">Functional programming</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Notice/" style="font-size: 10px;">Notice</a> <a href="/tags/React/" style="font-size: 13.33px;">React</a> <a href="/tags/Reactive-programming/" style="font-size: 10px;">Reactive programming</a> <a href="/tags/TMI/" style="font-size: 16.67px;">TMI</a> <a href="/tags/anti-pattern/" style="font-size: 10px;">anti-pattern</a> <a href="/tags/objectel/" style="font-size: 10px;">objectel</a> <a href="/tags/proposal/" style="font-size: 10px;">proposal</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Jaewon Seo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'environmentset-io';
+    
+    
+    var disqus_url = 'https://environmentset.github.io/2018/06/22/How-break-statement-break-statement/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

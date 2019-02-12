@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="naver-site-verification" content="ee028044c5e9da73dd80dcf1c6286530dc9b5344"/>
+
+    
+
+    
+    <title>Stop using CSS with React | ENvironmentSet</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="JavaScript,React,CSS,anti-pattern" />
+    
+    <meta name="description" content="TL;DRReact(혹은 자체적인 Component를 가지고 있는 프레임워크)를 사용할 때, CSS selector가 제 역할을 하지 못하게 되어React의 Component에 styling과 직접적으로 관련된 추가적인 로직이 포함되게 됩니다. 이는 CSS(SCSS)와 Component 사이의 어중간한 분리를 불러일으킵니다(Control coupling)">
+<meta name="keywords" content="JavaScript,React,CSS,anti-pattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stop using CSS with React">
+<meta property="og:url" content="https://environmentset.github.io/2019/01/06/Stop-using-CSS-with-React/index.html">
+<meta property="og:site_name" content="ENvironmentSet">
+<meta property="og:description" content="TL;DRReact(혹은 자체적인 Component를 가지고 있는 프레임워크)를 사용할 때, CSS selector가 제 역할을 하지 못하게 되어React의 Component에 styling과 직접적으로 관련된 추가적인 로직이 포함되게 됩니다. 이는 CSS(SCSS)와 Component 사이의 어중간한 분리를 불러일으킵니다(Control coupling)">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://environmentset.github.io/images/stop-using-css-with-react.jpeg">
+<meta property="og:updated_time" content="2019-01-18T14:58:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stop using CSS with React">
+<meta name="twitter:description" content="TL;DRReact(혹은 자체적인 Component를 가지고 있는 프레임워크)를 사용할 때, CSS selector가 제 역할을 하지 못하게 되어React의 Component에 styling과 직접적으로 관련된 추가적인 로직이 포함되게 됩니다. 이는 CSS(SCSS)와 Component 사이의 어중간한 분리를 불러일으킵니다(Control coupling)">
+<meta name="twitter:image" content="https://environmentset.github.io/images/stop-using-css-with-react.jpeg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131792068-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">I LOVE JavaScript</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Notice/">Notice</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="뭔가를 입력하세요...!" />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: '페이지들',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(무제)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Documents-About-JavaScript/">JavaScript</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-Stop-using-CSS-with-React" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Stop using CSS with React
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/01/06/Stop-using-CSS-with-React/" class="article-date">
+            <time datetime="2019-01-05T15:20:04.000Z" itemprop="datePublished">2019-01-06</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/CSS/">CSS</a>, <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/React/">React</a>, <a class="tag-link" href="/tags/anti-pattern/">anti-pattern</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="/images/stop-using-css-with-react.jpeg" alt="stop using css with react"></p>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>React(혹은 <strong>자체적인 Component</strong>를 가지고 있는 프레임워크)를 사용할 때, CSS selector가 제 역할을 하지 못하게 되어<br>React의 Component에 styling과 <strong>직접적으로</strong> 관련된 추가적인 로직이 포함되게 됩니다.</p>
+<p>이는 CSS(SCSS)와 Component 사이의 <strong>어중간한 분리</strong>를 불러일으킵니다(Control coupling).</p>
+<p>이 문제에 대해, styled-component와 emotion같은 CSS-IN-JS 라이브러리들은 Component와 그 Component의 Style을 <strong>1대 1로,<br>아주 강하게 묶어내서 하나의 모듈로 병합시키는 방식</strong>을 선택했습니다.<br>이 방식은 지금까지 등장한 방식 중 단연 효과적이였습니다. 1대 1로 강하게 묶어버리면서 <strong>두 개의 분리된 모듈</strong>을 <strong>하나의 모듈</strong>로 병합시켰고,<br>그로 인해 코드가 <strong>낮은 결합도</strong>를 취할 수 있게 하였습니다.</p>
+<p>이런 이유로 저는 여러분들께 CSS(SCSS)를 떠나 CSS-IN-JS를 쓰시는 것을 추천드립니다.</p>
+<h2 id="CSS’S-Styling"><a href="#CSS’S-Styling" class="headerlink" title="CSS’S Styling"></a>CSS’S Styling</h2><blockquote>
+<p>Cascading Style Sheets (CSS) is a simple mechanism for adding style (e.g., fonts, colors, spacing) to Web documents. - W3C</p>
+</blockquote>
+<blockquote>
+<p>Cascading Style Sheets (CSS) 는 웹 문서에 스타일을 제공하기 위한 간단한 메커니즘 입니다. - W3C</p>
+</blockquote>
+<p>아시다시피, <a href="https://developer.mozilla.org/ko/docs/Web/CSS" target="_blank" rel="noopener">CSS</a>는 웹 문서에 스타일을 적용하기 위한 언어입니다.<br>웹 문서에 스타일을 적용하기 때문에, 대상은 자연스럽게 HTML Element가 됩니다.</p>
+<p>하지만, HTML에는 정말 많은 종류의 HTML Element가 정말 많은 위치에 자리하고 있습니다(i.e: <code>&lt;head&gt;</code> 안에, <code>&lt;body&gt;</code>와 <code>&lt;div&gt;</code> 안에, 등등…).<br>CSS는 어떻게 ‘어떤 종류의 Element’, ‘어디에 있는 Element’를 찾아 스타일링할까요?</p>
+<p>CSS는 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors" target="_blank" rel="noopener">CSS selector</a>를 통해 스타일링의 대상을 지정하는 방식을 사용합니다.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type='file']</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.draggableImage</span> &#123;</span><br><span class="line">  <span class="attribute">cursor</span>: grab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>CSS selector를 사용하면 스타일링할 HTML Element의 <strong>거의 모든 정보</strong>를 서술하여 구체적인 대상을 설정할 수 있습니다.<br>(<strong>심지어 그 위치까지 서술할 수 있습니다!!!</strong>)</p>
+<p>이렇게 강력한 무기를 가졌기 때문에 CSS는 지금까지도 대체품을 만드려는 거대한 그룹이 없습니다. 이를 확장한 언어를 만드는 그룹은 있어도요(SCSS).</p>
+<p>하지만 <a href="https://reactjs.org/" target="_blank" rel="noopener">React</a>와 같이 Virtual DOM과 자체적인 Element를 가진 프레임워크(혹은 라이브러리, 뭐시 중허나요.)가 등장하자 CSS의 강력한 무기인 selector의 위기가 찾아왔습니다.</p>
+<h2 id="CSS-Selector-is-not-a-sliver-bullet"><a href="#CSS-Selector-is-not-a-sliver-bullet" class="headerlink" title="CSS Selector is not a sliver bullet!"></a>CSS Selector is not a sliver bullet!</h2><p>앞서 이야기했듯이, CSS가 스타일링 할 대상은 HTML Element 입니다. React Element가 아니라요.<br>그렇기 때문에 CSS selector는 HTML Element를 지정하기 위한 정보를 서술할 수는 있어도 React Element를 지정하기 위한 정보는 서술할 수 없습니다.</p>
+<p>이 점을 알고 있는 React 개발자들은 React Element(와 기타 데이터들)를 DOM Node로 변환시키기 위한 라이브러리인 <a href="https://github.com/facebook/react/tree/master/packages/react-dom" target="_blank" rel="noopener">react-dom</a> 에서<br>HTML Element에 대응하는 React Element를 생성할 때, <code>className</code> 이라는 property를 받아, 차후 HTML Element 로 변환할 때 <code>class</code> attribute로 넣어주는 기능을 포함해서,<br>대응하는 React Element의 property를 통해 HTML Element의 attribute를 설정하는 기능을 만들었습니다.</p>
+<p>이 기능을 통해 React를 사용하는 개발자들은 CSS selector를 이용할 수 있게 되었습니다.<br><figure class="highlight jsx"><figcaption><span>harmony</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyButton = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">    &lt;button className=<span class="string">'customButton blue'</span>&gt;</span><br><span class="line">       click me!</span><br><span class="line">    &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.customButton</span> &#123;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.blue</span> &#123;</span><br><span class="line"> <span class="attribute">background-color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>음… Component의 Style을 바로 볼 수 없는 게 안타깝긴 하지만 이건 개인 취향이니 넘어가도록 하지요.<br>이렇게 간단한 컴포넌트를 만드는 경우에는 <code>className</code>(<code>class</code> attribute)를 통해 styling을 받는 것도 만족스러워 보입니다.</p>
+<p>하지만, Component의 property 혹은 상태에 따라 style을 변경해야 하는 경우에는 이야기가 달라집니다.<br><figure class="highlight jsx"><figcaption><span>harmony</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyButton = <span class="function">(<span class="params">&#123; clicked, onClick &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> color = clicked ? <span class="string">'red'</span> : <span class="string">'blue'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;button className=&#123;<span class="string">`customButton <span class="subst">$&#123;color&#125;</span>`</span>&#125; onClick=&#123;onClick&#125;&gt;</span><br><span class="line">      click me!</span><br><span class="line">    &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.customButton</span> &#123;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line"> <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.blue</span> &#123;</span><br><span class="line"> <span class="attribute">background-color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>문제점이 보이시나요? 다시 처음으로 돌아가 생각해보죠.</p>
+<ol>
+<li>CSS란? -&gt; 웹 문서에 스타일을 적용하기 위한 언어</li>
+<li>CSS의 역할은? -&gt; HTML Element 스타일링</li>
+<li>스타일링이란? -&gt; 특정 디자인이 필요한 대상에게 디자인을 입혀주는 것</li>
+<li>대상에게 입혀주는 것이란? -&gt; 대상을 찾아 <strong>능동적</strong>으로 디자인을 입혀주는 것 (만약 대상이 직접 찾아오는 거였다면 CSS selector는 필요하지 않은 요소이다.)</li>
+<li>위 예제에서 CSS는 CSS selector를 통해 <strong>능동적</strong>으로 HTML Element를 스타일링하는가? -&gt; 9번째 줄에서 class name을 연산하고, 12번째 줄에서 연산한 class name을 React Component가 적용하기 때문에 아니다.</li>
+<li>위 예제에서 CSS는 자신이 마땅히 해야 하는 일을 다 하였는가? -&gt; 아니다, HTML Element의 색을 스스로 결정하지 못했기 때문이다.</li>
+</ol>
+<p>이제 문제점이 보이시나요?</p>
+<p>위 코드의 문제는 바로, CSS가 해야 하는 <strong>스타일링</strong> 이라는 작업의 일부를 React Component가 하고 있는 것입니다!<br>CSS와 React Component가 서로 <strong>완벽하게 분리된 것도</strong>, <strong>완벽하게 결합된 것도</strong> 아닙니다. <strong>어중간하게 결합된 것</strong> 입니다!</p>
+<p>즉, 만약 우리가 웹 페이지의 형태를 바꾸기 위해 CSS 코드를 수정하면 React Component를 수정해야 할 지도 모릅니다. React Component와 CSS가 <strong>스타일링</strong> 이라는 작업을 같이 담당하고 있기 때문이죠.<br>반대로 React Component를 수정하면 CSS 코드를 수정해야 할 지 모릅니다.</p>
+<p>이렇게, 우리의 든든한 아군이자, CSS의 강력한 무기였던 CSS selector가 만병통치약이 아님이 밝혀졌습니다.</p>
+<h2 id="Use-CSS-IN-JS-instead-of-CSS-selector"><a href="#Use-CSS-IN-JS-instead-of-CSS-selector" class="headerlink" title="Use CSS-IN-JS instead of CSS selector"></a>Use CSS-IN-JS instead of CSS selector</h2><p>자, React Element 스타일링이라는 카이주를 잡기 위한, 새로운 예거를 여러분들께 소개해드리겠습니다.</p>
+<p>바로.. <a href="https://reactjs.org/docs/faq-styling.html#what-is-css-in-js" target="_blank" rel="noopener">CSS-IN-JS</a>!</p>
+<p><img src="/images/CSS-IN-JS.jpg" alt="CSS-IN-JS is great!"></p>
+<blockquote>
+<p>“CSS-in-JS” refers to a pattern where CSS is composed using JavaScript instead of defined in external files. - React Blog</p>
+</blockquote>
+<blockquote>
+<p>“CSS-in-JS”는 CSS를 추가적인 파일에 정의하지 않고 JavaScript 코드와 결합시켜서 정의하는 패턴을 의미합니다. - React Blog</p>
+</blockquote>
+<p>CSS selector가 React Element를 만나면 무능력해지는 문제를 React 진영의 몇몇 사람들은 CSS 코드를 React Component와 묶어버리는 방법을 통해 해결했습니다.<br>아래와 같이요.</p>
+<figure class="highlight jsx"><figcaption><span>harmony</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyButton = styled.button<span class="string">`</span></span><br><span class="line"><span class="string">  border-radius: 50%;</span></span><br><span class="line"><span class="string">  color: <span class="subst">$&#123;(&#123; clicked &#125;</span>) =&gt; clicked ? 'red' : 'blue'&#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br></pre></td></tr></table></figure>
+<p>이렇게 styled-components를 통해 CSS-IN-JS를 사용함으로서 React Component와 CSS가 하나로 합쳐지면서 두 개의 어중간한 결합성을 가진 개체에서 하나의 독립적인 개체가 되었습니다.</p>
+<p>이제 우리는 CSS 와 React Component간의 결합도에 대해 걱정하지 않아도 됩니다. 한 몸이 되었기 때문이죠.</p>
+<p>자, 어떠신가요? 이제라도 CSS-IN-JS를 쓰고 싶지 않으신가요? 마지막으로 저는 제가 좋아하는 CSS-IN-JS 라이브러리들을 여러분들께 소개해드리며 이만 글을 마치도록 하겠습니다.</p>
+<ul>
+<li><p><a href="https://www.styled-components.com/" target="_blank" rel="noopener">styled-components</a><br>가장 유명한 CSS-IN-JS 라이브러리입니다. tagged template 을 이용해 깔끔하고 세련된 방식으로 component를 styling 하는 방법을 제공합니다.</p>
+</li>
+<li><p><a href="https://glamorous.rocks/" target="_blank" rel="noopener">glamorous</a><br>paypal의 CSS-IN-JS 라이브러리입니다. 지금은 관리가 중단되어 프로젝트가 정지된 상태입니다. 객체 리터럴을 이용한 styling을 제공합니다.<br>또한 styling 하며 생길 수 있는 몇몇 문제에 대한 해법이 마련되어 있습니다. (제 손에 익은 라이브러리입니다.)</p>
+</li>
+<li><p><a href="https://emotion.sh/" target="_blank" rel="noopener">emotion</a><br>glamorous와 styled-components를 계승하는 라이브러입니다. glamorous보다 더 빠르고 더 가벼우며 tagged template과 객체 리터럴을 이용한 styling을 지원합니다.</p>
+</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://environmentset.github.io/2019/01/06/Stop-using-CSS-with-React/" data-id="cjs1mdc5f0042bxjykgfgchwr" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100015357423292" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ENvironmentSet" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">새로운</strong>
+        <p class="article-nav-title">
+        
+            objectel: Event-Driven Reactive Programming Library
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/09/23/My-Old-Blog/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">오래된</strong>
+        <p class="article-nav-title">My Old Blog</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">최근 글</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Learn-you-a-React-for-good-preface/React.png)" alt="Learn you a React for good - preface" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></p>
+                            <p class="item-title"><a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="title">Learn you a React for good - preface</a></p>
+                            <p class="item-date"><time datetime="2019-02-12T10:11:32.000Z" itemprop="datePublished">2019-02-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png)" alt="You don&#39;t know everything of arguments object" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="title">You don&#39;t know everything of arguments object</a></p>
+                            <p class="item-date"><time datetime="2019-01-31T14:20:13.000Z" itemprop="datePublished">2019-01-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/be-reactive.jpg)" alt="objectel: Event-Driven Reactive Programming Library" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="title">objectel: Event-Driven Reactive Programming Library</a></p>
+                            <p class="item-date"><time datetime="2019-01-16T16:32:14.000Z" itemprop="datePublished">2019-01-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/06/Stop-using-CSS-with-React/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/stop-using-css-with-react.jpeg)" alt="Stop using CSS with React" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/06/Stop-using-CSS-with-React/" class="title">Stop using CSS with React</a></p>
+                            <p class="item-date"><time datetime="2019-01-05T15:20:04.000Z" itemprop="datePublished">2019-01-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/23/My-Old-Blog/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/09/23/My-Old-Blog/" class="title">My Old Blog</a></p>
+                            <p class="item-date"><time datetime="2018-09-22T18:35:50.000Z" itemprop="datePublished">2018-09-23</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">카테고리</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notice/">Notice</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">1월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">9월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">6월 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">태그</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Driven-programming/">Event Driven programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functional-programming/">Functional programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notice/">Notice</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-programming/">Reactive programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TMI/">TMI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anti-pattern/">anti-pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/objectel/">objectel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proposal/">proposal</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Event-Driven-programming/" style="font-size: 10px;">Event Driven programming</a> <a href="/tags/Functional-programming/" style="font-size: 10px;">Functional programming</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Notice/" style="font-size: 10px;">Notice</a> <a href="/tags/React/" style="font-size: 13.33px;">React</a> <a href="/tags/Reactive-programming/" style="font-size: 10px;">Reactive programming</a> <a href="/tags/TMI/" style="font-size: 16.67px;">TMI</a> <a href="/tags/anti-pattern/" style="font-size: 10px;">anti-pattern</a> <a href="/tags/objectel/" style="font-size: 10px;">objectel</a> <a href="/tags/proposal/" style="font-size: 10px;">proposal</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Jaewon Seo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'environmentset-io';
+    
+    
+    var disqus_url = 'https://environmentset.github.io/2019/01/06/Stop-using-CSS-with-React/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

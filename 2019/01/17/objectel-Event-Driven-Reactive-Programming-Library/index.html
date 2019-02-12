@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="naver-site-verification" content="ee028044c5e9da73dd80dcf1c6286530dc9b5344"/>
+
+    
+
+    
+    <title>objectel: Event-Driven Reactive Programming Library | ENvironmentSet</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="JavaScript,objectel,Event Driven programming,Reactive programming,Functional programming" />
+    
+    <meta name="description" content="저는 리액트의 열렬한 팬입니다. 와! virtual dom! 와! component!리액트의 이러한 개념들은 수많은 개발자들을 매료시켰는데요, 단순히 ‘react‘ 라는 키워드를 검색하면 나오는 결과가 이 사실을 보란듯이 증명해줍니다.  확실히, 리액트의 등장으로 ‘거대한‘ 웹 어플리케이션 제작은 기존보다 난이도가 낮아졌습니다.리액트가 채택한, 프로그래밍">
+<meta name="keywords" content="JavaScript,objectel,Event Driven programming,Reactive programming,Functional programming">
+<meta property="og:type" content="article">
+<meta property="og:title" content="objectel: Event-Driven Reactive Programming Library">
+<meta property="og:url" content="https://environmentset.github.io/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/index.html">
+<meta property="og:site_name" content="ENvironmentSet">
+<meta property="og:description" content="저는 리액트의 열렬한 팬입니다. 와! virtual dom! 와! component!리액트의 이러한 개념들은 수많은 개발자들을 매료시켰는데요, 단순히 ‘react‘ 라는 키워드를 검색하면 나오는 결과가 이 사실을 보란듯이 증명해줍니다.  확실히, 리액트의 등장으로 ‘거대한‘ 웹 어플리케이션 제작은 기존보다 난이도가 낮아졌습니다.리액트가 채택한, 프로그래밍">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://environmentset.github.io/images/be-reactive.jpg">
+<meta property="og:updated_time" content="2019-01-18T14:58:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="objectel: Event-Driven Reactive Programming Library">
+<meta name="twitter:description" content="저는 리액트의 열렬한 팬입니다. 와! virtual dom! 와! component!리액트의 이러한 개념들은 수많은 개발자들을 매료시켰는데요, 단순히 ‘react‘ 라는 키워드를 검색하면 나오는 결과가 이 사실을 보란듯이 증명해줍니다.  확실히, 리액트의 등장으로 ‘거대한‘ 웹 어플리케이션 제작은 기존보다 난이도가 낮아졌습니다.리액트가 채택한, 프로그래밍">
+<meta name="twitter:image" content="https://environmentset.github.io/images/be-reactive.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131792068-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">I LOVE JavaScript</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Notice/">Notice</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="뭔가를 입력하세요...!" />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: '페이지들',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(무제)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Documents-About-JavaScript/">JavaScript</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-objectel-Event-Driven-Reactive-Programming-Library" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        objectel: Event-Driven Reactive Programming Library
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="article-date">
+            <time datetime="2019-01-16T16:32:14.000Z" itemprop="datePublished">2019-01-17</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Event-Driven-programming/">Event Driven programming</a>, <a class="tag-link" href="/tags/Functional-programming/">Functional programming</a>, <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/Reactive-programming/">Reactive programming</a>, <a class="tag-link" href="/tags/objectel/">objectel</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="/images/be-reactive.jpg" alt="programmers, it&#39;s time to be reactive"></p>
+<p>저는 리액트의 열렬한 팬입니다. 와! virtual dom! 와! component!<br>리액트의 이러한 개념들은 수많은 개발자들을 매료시켰는데요, 단순히 ‘<strong>react</strong>‘ 라는 키워드를 검색하면 나오는 결과가 이 사실을 보란듯이 증명해줍니다.</p>
+<p><img src="/images/react-npm.png" alt="react-npm"><br><img src="/images/react-google.png" alt="react-google"></p>
+<p>확실히, 리액트의 등장으로 ‘<strong>거대한</strong>‘ 웹 어플리케이션 제작은 기존보다 난이도가 낮아졌습니다.<br>리액트가 채택한, 프로그래밍의 변치 않는 본질적인 요소, ‘<strong>분해와 합성</strong>‘이 정확하게 먹혀들어간거죠.</p>
+<p>지금도 우리는 리액트를 통해 충분히 행복하게 개발하고 있다고 생각합니다.<br>하지만.. <strong>더 나아질 수는 없을까요?</strong></p>
+<h2 id="Way-back-Event-Driven-programming"><a href="#Way-back-Event-Driven-programming" class="headerlink" title="Way back Event-Driven programming"></a>Way back Event-Driven programming</h2><p>리액트는 ‘<strong>분해와 합성</strong>‘을 주 패턴으로 채택한 프레임워크로서<br>High Order Component, Functional Component 등을 통해 계층적인 웹 어플리케이션을 구성하는 디자인을 택했습니다.<br>이 디자인은 모던 웹 어플리케이션을 개발할 때 아주 효과적인데요, 이런 리액트의 디자인에도 몇 아쉬운 점이 있습니다.</p>
+<p>1: 컴포넌트끼리의 상호작용이 힘듭니다.</p>
+<p>기본적으로 컴포넌트간의 상호작용은 인접한 컴포넌트끼리 props 를 통해 콜백이나 데이터 등을 전달하는 방식으로 이루어지기 때문에,<br>서로 상호작용을 하는 두 컴포넌트가 있을 때, 이 둘의 거리가 멀어질 수록<br>더 많은 컴포넌트들이 두 컴포넌트의 상호작용을 위해 희생(props 항목 증가)을 하게 됩니다.</p>
+<p>물론 이 문제는 해결책이 등장하긴 했습니다. 바로 <a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener">Context API</a> 지요.<br>하지만 저는 아직도 불만이 있습니다.</p>
+<p>1.1: 상호작용을 위한 값을 제공할 <code>Provider</code> 아래에 상호작용할 모든 컴포넌트들이 존재해야 한다.</p>
+<p>이렇게 되면 결국 다른 컴포넌트 하나가 다른 컴포넌트들의 상호작용을 위한 업무를 떠안거나 이 업무만을 위한 컴포넌트를 하나 만들어야 합니다.</p>
+<p>그리고 두 컴포넌트 간의 너비가 넓으면 넓을 수록 <code>Provider</code>(혹은 그에 준하는 역할을 가진 컴포넌트)의 높이는 점점 낮아지게 됩니다.<br>또한 <code>Provider</code>의 범위 밖에 있는 컴포넌트와 상호작용을 하려면 <code>Provider</code>의 높이를 낮추기 위해, 혹은<br>그 컴포넌트를 <code>Provider</code>의 범위 안에 들어오게 하기 위해 기존의 코드를 뜯어고치는 상황이 발생하게 됩니다.</p>
+<p>1.2: 여러 Context를 동시에 참조하기 어렵습니다.</p>
+<p>클래스 컴포넌트의 경우 Context를 참조하는 특별한 방법으로 <code>Class.contextType</code> 과 <code>this.context</code>가 있지만,<br>아쉽게도 <code>Class.contextType</code>으로 지정한 하나의 Context만 참조할 수 있습니다.</p>
+<p>그럼 남은 방법은 <code>Consumer</code> 뿐인데요, 얘도 자신과 함께 생성된 <code>Provider</code>가 제공하는 Context만 참조할 수 있습니다.<br>그렇기에 일반적으로 여러 Context를 동시에 참조하려면 아래와 같이 해야 하는데요,</p>
+<figure class="highlight jsx"><figcaption><span>harmony</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;MyContext1.Consumer&gt;</span><br><span class="line">  &#123; x =&gt; (</span><br><span class="line">    &lt;MyContext2.Consumer&gt;</span><br><span class="line">      &#123; y =&gt; (</span><br><span class="line">        &lt;Result&gt;</span><br><span class="line">          &#123; x + y &#125;</span><br><span class="line">        &lt;<span class="regexp">/Result&gt;</span></span><br><span class="line"><span class="regexp">      )&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>MyContext2.Consumer&gt;</span><br><span class="line">  )&#125;</span><br><span class="line">&lt;<span class="regexp">/MyContext1.Consumer&gt;</span></span><br></pre></td></tr></table></figure>
+<p>이런 방식은 상당히 불편합니다. 다행스럽게도 HOC를 통해 <strong>컨텍스트를 전부 하드코딩하는</strong> 최악의 상황은 면할 수 있지만<br>그래도 코드가 더러워지는 건 사실입니다. 우리가 jsx를 통해 알고 싶은 건 ‘<strong>웹 어플리케이션이 어떻게 보일 지</strong>‘, ‘<strong>어떤 주요 로직이 있는지</strong>‘ 이지<br>어떤 컨텍스트들이 내려가는 지, 제공되는 지는 아니잖아요.</p>
+<p>2: 컴포넌트 바깥의 사정을 고려해야 합니다.</p>
+<p>매 컴포넌트를 만들 때 마다 누가 어떻게 이 컴포넌트를 다룰 지, 어떻게 결과를 내보내 주어야 하는지 등에 대해 고민해야 합니다.<br>이런 부수적인 고민들은 가장 중요한 ‘<strong>컴포넌트의 메인 로직</strong>‘(어떻게 데이터가 다뤄지는 가, 무엇이 랜더링되는 가 등..)을 고민하지 못하게 프로그래머를 방해합니다.</p>
+<p>예를 하나 들어보지요, 우리는 지금 입력 폼의 입력 컴포넌트를 작성하고 있습니다.<br><code>const InputField = () =&gt; {}</code> 먼저 컴포넌트의 뼈대를 작성하자 마자 수많은 질문이 쏟아져 나옵니다.<br>“입력 검증은 어떻게 하지? 정규식? 검증 함수?”, “controlled component로 만들까?”, “그럼 값이 변경되었음은 어떻게 알리지?”, “오류가 발생하였음은 어떻게 알리지?”,<br>“드롭다운 버튼이라면 입력 리스트는 어떻게 받고?” 이 질문들 중, ‘<strong>컴포넌트의 메인 로직</strong>‘작성 과 직결된 질문은 몇 가지일까요?<br>정답은 2개 입니다. 입력 검증과, 컴포넌트의 형식을 제외한 나머지 질문들은 컴포넌트가 입력을 어떻게 받을 지, 어떻게 내보낼 지에 대한 질문일 뿐입니다.<br>그리고 이런 질문들은 각 컴포넌트들이 ‘<strong>캡슐화가 덜 되었음</strong>‘을 여실히 알려주지요. 하지만 아시다시피 리액트는 여기서 더 이상의 캡슐화를 할 수 없습니다.</p>
+<p>3: 별로 리액티브 하지 않습니다.</p>
+<p>모든 컴포넌트는 기본적으로 Props, State의 변화에만 반응합니다.<br>어플리케이션(혹은 다른 컴포넌트의 상태)의 변화에 반응하려면 콜백과 같은 수단을 사용하여야만 하지요.<br>하지만 앞서 언급했듯이 props는 기본적으로 근접한 ‘자식’ 컴포넌트와만 교환할 수 있기 때문에 멀리 떨어진 컴포넌트에게 콜백을 전달하기란..<br>쉽지 않은 일인 건 확실합니다.</p>
+<p>그리고 전 제 컴포넌트들이 자신과 관련없는 ‘<strong>상태 알리미 콜백</strong>‘으로 점칠되는 게 그닥 마음에 들지 않습니다.</p>
+<p>좋아요, 여기까지는 제 불만 사항들입니다.<br>그럼.. 이 불만 사항들을 어떻게 해결할 수 있을까요?</p>
+<p>몇 달 전, 저는 굉장히 고전적이면서도 효과적인 방법을 찾아냈습니다.<br>저 처럼 문제에만 집중하고 싶어하는 사람들을 위한 방법이였죠.</p>
+<p>동화책에서나 나올 법한 유니콘이 아닙니다.<br>Event-Driven Reactive Programming 입니다.</p>
+<h2 id="Don’t-try-to-control-everything-just-believe-them"><a href="#Don’t-try-to-control-everything-just-believe-them" class="headerlink" title="Don’t try to control everything, just believe them"></a>Don’t try to control everything, just believe them</h2><p>아주 어렸을 때 읽었던 고사성어 책에서 이런 이야기를 소개했었습니다.</p>
+<p>먼 옛날, 한 도시에 새로이 부임한 관리가 있었습니다. 그 관리는 도시를 더 좋게 만들고자<br>제 딴에는 노력을 기울여 도시와 관련된 일이라면 하나부터 열까지 직접 지휘했습니다.</p>
+<p>하지만 이런 관리의 노력과는 달리, 백성들을 불만을 토로하고 있었습니다. 도대체 어떻게 된 일일까요?</p>
+<p>자신이 무엇을 잘못했는지 알지 못했던 관리는 자신이 부임되기 전에 도시를 맡았던, 백성들이 무한한 존경심을 보냈던<br>은퇴한 관리를 찾아가서 물었습니다. “저는 백성들을 아끼기에 손수 나서서 모든 걸 해결해주었는데 왜 백성들을 제게 불만을 토로하는걸까요? 저는 도통 모르겠습니다.”<br>그러자 관리가 답했습니다. “자네는 백성들을 아끼지만, 백성들을 믿지 못해서 문제라네. 백성들에게 일을 믿고 맡기게나, 자네가 믿음을 표현한다면 백성들도 그 믿음에 보답하고자 제 일에 최선을 다할걸세”</p>
+<p>믿음을 가져라, 신뢰해라, 비단 과거에만 통하는 이야기는 아닙니다.<br>넷플릭스, 에어비엔비 등 빠른 시간에 지대한 성장을 이루어 낸 스타트업 회사들의 업무 처리 방식이기도 합니다.<br>계획서 대신 업무를 맡은 직원의 아이디어로, 명령 대신 “<strong>이 사람은 이 분야의 전문가</strong>“라는 믿음으로 기다립니다.</p>
+<p>프로그래밍은 현실의 문제를 푸는 일입니다. ‘<strong>다른 어떤 미지의 문제</strong>‘가 아니라요.<br>이런 프로그래밍에서, 현실에서 성공한 문제 해결 방식을 도입하는 건 분명 효과적이지 않을 수가 없습니다.</p>
+<p>그렇기에 저는 새로운 라이브러리를 만들기 위해 현실에서 성공한 두 가지 문제 해결 방식을 선택했습니다.<br>바로 ‘<strong>분업</strong>‘과 ‘<strong>믿을만한 전문가</strong>‘ 입니다.</p>
+<p>이 중에서 ‘<strong>분업</strong>‘은 분할 정복이라는 이름으로 이미 프로그래밍 계에 소개되었습니다.<br>위에서 설명한 리액트도 분할 정복을 잘 적용한 예시 중 하나구요.<br>하지만 ‘<strong>믿을만한 전문가</strong>‘는요..?</p>
+<p>사실 따지고 보면 프로그램을 함수로, 객체로, 아니 그 무엇으로 나누어도 우리는 ‘<strong>믿을만한 전문가</strong>‘ 방식을 사용하고 있다고 주장할 수 있습니다.<br>‘<strong>자기 코드를 믿지 않는 프로그래머는 세상에 없거든요!</strong>‘, 우리는 코드를 작성할 때 “이 코드가 돌아가지 않으면 어쩌지?”보다<br>“이 코드가 돌아가면 이 코드도 돌아가고 여차저차해서 프로그램이 잘 돌아갈거야!” 라고 생각하지요. 그래서 오류를 발견하면 놀라는 거구요.<br>기대가 없으면 실망도 없잖아요!.</p>
+<p>이쯤 되면 이런 생각을 하시는 분들도 계실겁니다.</p>
+<blockquote>
+<p>나는 내 프로그램도 작게 쪼갰고, 내 코드도 믿는 데 왜 프로그래밍이 더 힘들어졌어..</p>
+</blockquote>
+<p>다원적인 고민이지요, 하지만 대부분의 경우 이 문제는 단 하나의 도구를 들여오면 해결됩니다.<br>바로 ‘<strong>개체 간의 상호작용을 위한 도구</strong>‘ 입니다.</p>
+<p>문제를 쪼개어 여러 전문가에게 나누어 풀게 하고 싶으면 당연히 그 전문가들과, 그 전문가들끼리 상호작용할 수 있게 해 주는 도구가 있어야 합니다.<br>이 도구를 만드는 방식은 정말 많은데요. 저는 그 중에서도 ‘<strong>이벤트 스트림</strong>‘을 선택했습니다.</p>
+<p>즉, 저는 리액트의 문제를 해결하기 위해 ‘<strong>이벤트 스트림을 통해 각 전문가 코드가 소통을 할 수 있게 만들었다</strong>‘ 라는 이야기입니다.</p>
+<h2 id="objectel-Event-Driven-Reactive-Programming-Library"><a href="#objectel-Event-Driven-Reactive-Programming-Library" class="headerlink" title="objectel: Event-Driven Reactive Programming Library"></a>objectel: Event-Driven Reactive Programming Library</h2><p>좋아요, ‘문제의 분해와 합성’, ‘이벤트 스트림을 통한 상호작용’, ‘리액티브 프로그래밍’ 이게 지금까지 다루어 온 주제입니다.<br>이제 본격적으로 위의 논의 사항을 바탕으로 만들어진 라이브러리, <a href="https://github.com/ENvironmentSet/objectel-core" target="_blank" rel="noopener">objectel</a>을 소개하도록 하겠습니다.</p>
+<p>objctel은 컴포넌트 단위로 문제를 쪼갠 후, 이벤트 스트림을 통해 다시 병합하여 문제를 해결할 수 있게 해주는 라이브러리입니다.</p>
+<p>그럼, 지금부터 아래의 간단한 예제 코드를 살펴보면서 objectel이 어떻게 제가 위에서 제시한 문제점들을 해결하였는지 살펴보도록 하겠습니다.</p>
+<p>P.S objectel의 API에 익숙하지 않으신 분들을 위해 소소하게 주석을 달아두었습니다.<br>다만 생략한 몇몇 부분이 있기에 objectel을 공부하시려는 분들은 저장소의 <a href="https://github.com/ENvironmentSet/objectel-core/blob/master/README.md" target="_blank" rel="noopener">API문서</a>를 읽으시는 걸 권장드립니다.</p>
+<figure class="highlight jsx"><figcaption><span>harmony</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Ol <span class="keyword">from</span> <span class="string">'objectel'</span>;</span><br><span class="line"><span class="keyword">import</span> merge <span class="keyword">from</span> <span class="string">'callbag-merge'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Ol.component(propsToModel, modelToResult, eventHandlerMap)</span></span><br><span class="line"><span class="comment">* propsToModel: 엘리먼트가 활성화 될 때 호출됩니다. </span></span><br><span class="line"><span class="comment">* 함수의 반환값은 엘리먼트의 초기 상태를 결정하기 위해 사용됩니다.</span></span><br><span class="line"><span class="comment">* modelToResult: 엘리먼트의 model이 수정되었을 때 호출됩니다.</span></span><br><span class="line"><span class="comment">* 함수의 반환값은 즉시 출력 스트림을 통해 전파됩니다.</span></span><br><span class="line"><span class="comment">* eventHandlerMap: event type: handler 형태의 객체입니다.</span></span><br><span class="line"><span class="comment">* 입력 스트림으로 지정된 타입의 이벤트가 들어왔을 때 event.payload, props, prevModel 형태로 호출됩니다. </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> Counter = Ol.component(</span><br><span class="line">  props =&gt; props.startValue,</span><br><span class="line">  count =&gt; Ol.createEvent(<span class="string">'log'</span>, &#123; <span class="attr">from</span>: Counter, <span class="attr">value</span>: count&#125;),</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">'increase'</span>: <span class="function">(<span class="params">amount, _, prevCount</span>) =&gt;</span> prevCount + amount,</span><br><span class="line">  &#125;,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Logger = Ol.component(</span><br><span class="line">  () =&gt; <span class="string">'logger has been initialized'</span>,</span><br><span class="line">  <span class="built_in">console</span>.log,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">'log'</span>: <span class="function">(<span class="params">&#123; <span class="keyword">from</span>, value &#125;</span>) =&gt;</span> <span class="string">`Log: <span class="subst">$&#123;value&#125;</span> / from: <span class="subst">$&#123;<span class="keyword">from</span>&#125;</span>`</span>,</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Functional Component</span></span><br><span class="line"><span class="comment">* props =&gt; event$ =&gt; output stream 형태의 함수입니다.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">(<span class="params">&#123; children &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(children)) children = [children];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">event$</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; Emit$, Listen$ &#125; = Ol.createEventBus();</span><br><span class="line">    Emit$(event$);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> merge(children.map(<span class="function"><span class="params">element</span> =&gt;</span> element(Listen$)));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Ol.createEventBus(...initEvents)</span></span><br><span class="line"><span class="comment">* 이벤트 버스를 생성하고 initEvent 들로 초기화합니다.</span></span><br><span class="line"><span class="comment">* listener sink인 Emit$과 listenable source인 Listen$를 반환합니다.</span></span><br><span class="line"><span class="comment">* Emit$은 주어진 source가 emit하는 값을 이벤트 버스의 리스너들에게 전달해줍니다.</span></span><br><span class="line"><span class="comment">* Listen$은 자신을 listen하는 sink에게 이벤트 버스에 Emit 된 값을 전달해줍니다.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> globalEventBus = Ol.createEventBus();</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Ol.createElement(component, props, children)</span></span><br><span class="line"><span class="comment">* 주어진 component와 props를 통해 element를 생성합니다.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> app = (</span><br><span class="line">  &lt;App&gt;</span><br><span class="line">    &lt;Counter startValue=&#123;<span class="number">0</span>&#125; /&gt;</span><br><span class="line">    &lt;Logger /&gt;</span><br><span class="line">  &lt;<span class="regexp">/App&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">globalEventBus.Emit$(app(globalEventBus.Listen$));</span></span><br></pre></td></tr></table></figure>
+<p>objectel은 event(혹은 여러분이 만든 어떤 것)을 스트림을 통해 모든 엘리먼트가 공유하게 함으로서<br>서로 상호작용을 할 컴포넌트끼리 서로 알지 못하여도 상호작용을 할 수 있게 만들었습니다.</p>
+<p>Counter 컴포넌트<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Counter = Ol.component(</span><br><span class="line">  props =&gt; props.startValue,</span><br><span class="line">  count =&gt; Ol.createEvent(<span class="string">'log'</span>, &#123; <span class="attr">from</span>: Counter, <span class="attr">value</span>: count&#125;),</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">'increase'</span>: <span class="function">(<span class="params">amount, _, prevCount</span>) =&gt;</span> prevCount + amount,</span><br><span class="line">  &#125;,</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>Logger 컴포넌트<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Logger = Ol.component(</span><br><span class="line">  () =&gt; <span class="string">'logger has been initialized'</span>,</span><br><span class="line">  <span class="built_in">console</span>.log,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">'log'</span>: <span class="function">(<span class="params">&#123; <span class="keyword">from</span>, value &#125;</span>) =&gt;</span> <span class="string">`Log: <span class="subst">$&#123;value&#125;</span> / from: <span class="subst">$&#123;<span class="keyword">from</span>&#125;</span>`</span>,</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>그 예로, 이 두 컴포넌트는 서로를 알지 못합니다. 하지만 App 컴포넌트를 통해 Counter의 출력 스트림과<br>Logger의 입력 스트림이 연결되어 상호작용을 하는 방법에 대한 고민 없이, 서로 이벤트를 통해 상호작용 할 수 있는 상태가 되었습니다.</p>
+<p>또한, prop, model의 변화가 아닌 그저 ‘이벤트의 수신’을 기반으로 모든 것이 작동하기 때문에 더욱 더 수준 높은<br>리액티브 프로그래밍이 가능합니다.</p>
+<p>어떠신가요? 한번 써 보고 싶으시지 않으신가요?<br>저는 여기서 objectel 소개를 마치고 다음 글인 ‘objectel로 간단한 카운터 웹 어플리케이션 만들기’로 돌아오겠습니다.</p>
+<hr>
+<p>More reading</p>
+<p><a href="https://github.com/objectel/objectel" target="_blank" rel="noopener">objectel project repository</a>: objectel 프로젝트의 저장소입니다. 아래 저장소들의 모노레포입니다.<br><a href="https://github.com/ENvironmentSet/objectel-core" target="_blank" rel="noopener">objectel repository</a>: objectel의 저장소입니다.<br><a href="https://github.com/ENvironmentSet/objectel-jsx-example/tree/master/examples/objectel-snabbdom" target="_blank" rel="noopener">objectel with snabbdom</a>: Vue가 포크하여 사용하고 있는 Virtual DOM 구현체인 snabbdom을 objectel에서 쉽게 사용할 수 있게 컴포넌트 형태로 제공해주는 snabbel 라이브러리 사용 예시가 있는 저장소입니다.<br><a href="https://github.com/ENvironmentSet/snabbel" target="_blank" rel="noopener">snabbel</a>: snabbel의 저장소입니다.<br><a href="https://github.com/ENvironmentSet/objectel-events" target="_blank" rel="noopener">objectel-events</a>: objectel의 이벤트를 다루는 유틸리티 함수를 제공하는 라이브러리입니다.</p>
+<p>objectel 프로젝트에 대한 컨트리뷰트는 언제나 환영입니다 :)</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://environmentset.github.io/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" data-id="cjs1mdc5h0043bxjyytx6lkub" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100015357423292" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ENvironmentSet" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/01/31/You-don-t-know-Arguments-Object/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">새로운</strong>
+        <p class="article-nav-title">
+        
+            You don&#39;t know everything of arguments object
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/01/06/Stop-using-CSS-with-React/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">오래된</strong>
+        <p class="article-nav-title">Stop using CSS with React</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">최근 글</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Learn-you-a-React-for-good-preface/React.png)" alt="Learn you a React for good - preface" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></p>
+                            <p class="item-title"><a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="title">Learn you a React for good - preface</a></p>
+                            <p class="item-date"><time datetime="2019-02-12T10:11:32.000Z" itemprop="datePublished">2019-02-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png)" alt="You don&#39;t know everything of arguments object" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="title">You don&#39;t know everything of arguments object</a></p>
+                            <p class="item-date"><time datetime="2019-01-31T14:20:13.000Z" itemprop="datePublished">2019-01-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/be-reactive.jpg)" alt="objectel: Event-Driven Reactive Programming Library" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="title">objectel: Event-Driven Reactive Programming Library</a></p>
+                            <p class="item-date"><time datetime="2019-01-16T16:32:14.000Z" itemprop="datePublished">2019-01-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/06/Stop-using-CSS-with-React/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/stop-using-css-with-react.jpeg)" alt="Stop using CSS with React" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/06/Stop-using-CSS-with-React/" class="title">Stop using CSS with React</a></p>
+                            <p class="item-date"><time datetime="2019-01-05T15:20:04.000Z" itemprop="datePublished">2019-01-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/23/My-Old-Blog/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/09/23/My-Old-Blog/" class="title">My Old Blog</a></p>
+                            <p class="item-date"><time datetime="2018-09-22T18:35:50.000Z" itemprop="datePublished">2018-09-23</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">카테고리</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notice/">Notice</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">1월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">9월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">6월 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">태그</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Driven-programming/">Event Driven programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functional-programming/">Functional programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notice/">Notice</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-programming/">Reactive programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TMI/">TMI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anti-pattern/">anti-pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/objectel/">objectel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proposal/">proposal</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Event-Driven-programming/" style="font-size: 10px;">Event Driven programming</a> <a href="/tags/Functional-programming/" style="font-size: 10px;">Functional programming</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Notice/" style="font-size: 10px;">Notice</a> <a href="/tags/React/" style="font-size: 13.33px;">React</a> <a href="/tags/Reactive-programming/" style="font-size: 10px;">Reactive programming</a> <a href="/tags/TMI/" style="font-size: 16.67px;">TMI</a> <a href="/tags/anti-pattern/" style="font-size: 10px;">anti-pattern</a> <a href="/tags/objectel/" style="font-size: 10px;">objectel</a> <a href="/tags/proposal/" style="font-size: 10px;">proposal</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Jaewon Seo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'environmentset-io';
+    
+    
+    var disqus_url = 'https://environmentset.github.io/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

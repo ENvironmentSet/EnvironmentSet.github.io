@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="naver-site-verification" content="ee028044c5e9da73dd80dcf1c6286530dc9b5344"/>
+
+    
+
+    
+    <title>You don&#39;t know everything of arguments object | ENvironmentSet</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="JavaScript,proposal" />
+    
+    <meta name="description" content="이번 글에서는 우리 모두가 알고 있는 arguments 객체에 대한 깊고도 깊은 이야기를 다룹니다. 본격적으로 글을 시작하기 전에, 잠시 arguments 객체와 관련된 자바스크립트 퀴즈를 풀어보도록 하지요. 123456function problem1(a, b, c) &amp;#123;  arguments[0] = 100;  return [a, b, c];&amp;#12">
+<meta name="keywords" content="JavaScript,proposal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="You don&#39;t know everything of arguments object">
+<meta property="og:url" content="https://environmentset.github.io/2019/01/31/You-don-t-know-Arguments-Object/index.html">
+<meta property="og:site_name" content="ENvironmentSet">
+<meta property="og:description" content="이번 글에서는 우리 모두가 알고 있는 arguments 객체에 대한 깊고도 깊은 이야기를 다룹니다. 본격적으로 글을 시작하기 전에, 잠시 arguments 객체와 관련된 자바스크립트 퀴즈를 풀어보도록 하지요. 123456function problem1(a, b, c) &amp;#123;  arguments[0] = 100;  return [a, b, c];&amp;#12">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://environmentset.github.io/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png">
+<meta property="og:updated_time" content="2019-02-11T06:44:14.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="You don&#39;t know everything of arguments object">
+<meta name="twitter:description" content="이번 글에서는 우리 모두가 알고 있는 arguments 객체에 대한 깊고도 깊은 이야기를 다룹니다. 본격적으로 글을 시작하기 전에, 잠시 arguments 객체와 관련된 자바스크립트 퀴즈를 풀어보도록 하지요. 123456function problem1(a, b, c) &amp;#123;  arguments[0] = 100;  return [a, b, c];&amp;#12">
+<meta name="twitter:image" content="https://environmentset.github.io/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131792068-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">I LOVE JavaScript</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Notice/">Notice</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="뭔가를 입력하세요...!" />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: '페이지들',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(무제)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Documents-About-JavaScript/">JavaScript</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-You-don-t-know-Arguments-Object" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        You don&#39;t know everything of arguments object
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="article-date">
+            <time datetime="2019-01-31T14:20:13.000Z" itemprop="datePublished">2019-01-31</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/proposal/">proposal</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>이번 글에서는 우리 모두가 알고 있는 <code>arguments</code> 객체에 대한 <strong>깊고도 깊은 이야기</strong>를 다룹니다.</p>
+<p>본격적으로 글을 시작하기 전에, 잠시 <code>arguments</code> 객체와 관련된 자바스크립트 퀴즈를 풀어보도록 하지요.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem1</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> [a, b, c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem1(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure>
+<p>정답: <code>[100, 2, 3]</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem2</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.hasOwnProperty(<span class="built_in">arguments</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem2(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure>
+<p>정답: <code>false</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem3</span>(<span class="params">a, b, c = <span class="number">10</span></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> [a, b, c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem3(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure>
+<p>정답: <code>[1, 2, 10]</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem4</span>(<span class="params">a, b, c = <span class="number">10</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">arguments</span>.callee;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem4(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure>
+<p>정답: 반환값 없음(<code>TypeError</code>)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">2</span>] = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem5(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure>
+<p>정답: <code>[1, 2]</code></p>
+<p>자, 몇 개나 맞추셨나요?<br>위 퀴즈를 전부 맞추셨다면, 이 글은 안 읽으셔도 됩니다. 저 문제들의 답이 나오는 이유와, 그 비하인드 스토리를 다루는 게 이 글의 주제이기 때문이죠!<br>또한 실무에서 사용할 법한 지식을 원하신다면, 이 글을 안 읽으셔도 됩니다. 왜냐면 제가 할 이야기들은 실무와 많이 동떨어진 이야기이거든요!<br>그렇담, 지금까지 뒤로가기를 안 누르신 여러분들께 지금부터 <code>arguments</code>의 속사정을 들려드리도록 하겠습니다!</p>
+<h1 id="What-we-already-knows"><a href="#What-we-already-knows" class="headerlink" title="What we already knows"></a>What we already knows</h1><p>먼저, 우리가 알고 있는 기본적인 상식들을 살펴보고 넘어가겠습니다.</p>
+<ol>
+<li><code>arguments</code> 객체는 함수의 전달인자(arguments)를 담고 있는 객체입니다.</li>
+<li><code>arguments</code> 객체는 ArrayLike(정수가 key로서 사용되는 객체, 배열과 같이 데이터 간의 순서가 있는 객체)입니다.</li>
+<li>전달인자는 왼쪽부터 인덱스를 부여받습니다(0.. 1.. 2..).</li>
+</ol>
+<p>그러므로 우리는 다음과 같은 방법을 통해 함수에게 전달된 값들을 읽을 수 있습니다:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">example1</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">arguments</span>[<span class="number">0</span>] === a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">example1(<span class="number">1</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>또한 <code>arguments</code> 객체에 담기는 값들은 <strong>전달인자</strong>이기 때문에 매개변수의 정의 여부에 상관하지 않고 읽을 수 있습니다!</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">example2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">example2(<span class="number">1</span>) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>와우! 멋진 객체이군요!</p>
+<h1 id="Birth-of-arguments-object"><a href="#Birth-of-arguments-object" class="headerlink" title="Birth of arguments object"></a>Birth of arguments object</h1><p>세상 모든 게 그렇듯, <code>arguments</code> 객체도 필요에 의해 만들어진 개념입니다.<br>도대체 어떤 이유로 이런 객체를 만들었는지 알아보도록 하지요.</p>
+<h2 id="Rest-parameter"><a href="#Rest-parameter" class="headerlink" title="Rest parameter"></a>Rest parameter</h2><p>우리가 잘 알고 있는 Rest parameter 문법은 ES6(2015)에서 추가된 문법입니다.<br>여기서 여러분들은 자바스크립트의 최초 버전이 1997년에 나왔다는 걸 잊지 마셔야 합니다.<br>도대체 그 18년동안 자바스크립트 개발자들은 어떻게 살았었을까요? 나머지 매개변수를 구현했었을까요?</p>
+<p>정답은.. 진짜로 그 18년동안 사람들은 <code>arguments</code> 객체를 사용해서 나머지 매개변수를 구현해서 사용했었습니다.</p>
+<p>바로 이렇게요:<br><a href="https://johnresig.com/blog/partial-functions-in-javascript/" target="_blank" rel="noopener">출처: Partial Application in JavaScript - John resig</a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.curry = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> fn = <span class="keyword">this</span>, args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>, args.concat(<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>)));</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>앞서 살펴보았듯, <code>arguments</code> 객체는 <strong>매개변수의 정의 여부에 상관하지 않기</strong> 때문에 이렇게 넘쳐버린 전달인자들도 담습니다.<br>그래서 저렇게 몇 개든 인자를 받아서 처리할 수 있는 것이지요.</p>
+<h2 id="Make-anonymous-function-Recursive"><a href="#Make-anonymous-function-Recursive" class="headerlink" title="Make anonymous function Recursive!"></a>Make anonymous function Recursive!</h2><p><code>arguments</code> 객체에는 <code>callee</code>라는 특별한 프로퍼티가 하나 있습니다.<br>이 프로퍼티에는 현재 실행중인 함수가 담겨 있는데요, 굳이 함수의 이름을 쓰지 않고 왜 이 프로퍼티를 사용했었을까요?</p>
+<p>그 이유는 시간을 거슬러 내려가, 자바스크립트의 초창기 버전(ES1~ES2)에서 찾을 수 있습니다.</p>
+<p>ES3 이전에는, 자바스크립트에 <strong>함수 표현식이 존재하지 않았었습니다.</strong><br>그래서 함수를 만들기 위해 프로그래머들은 <strong>함수 선언</strong> 혹은 <code>Function</code> 생성자를 사용했었습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 함수 선언</span></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">var</span> myFunction2 = <span class="keyword">new</span> <span class="built_in">Function</span>(); <span class="comment">// Function 생성자</span></span><br></pre></td></tr></table></figure>
+<p>이 중, <code>Function</code> 생성자로 만들어진 함수는 익명 함수입니다. 생성된 함수의 이름이 <code>&#39;anonymous&#39;</code> 이기 때문이죠.</p>
+<p>(여담이지만, 자바스크립트의 익명 함수는 함수명(<code>function.name</code>) 이 <code>&#39;anonymous&#39;</code> 인 함수와 <code>&#39;&#39;</code> 인 함수, 두 가지가 있습니다.<br>이 이야기는 다음 포스트에서 다루도록 하겠습니다.)</p>
+<p>자, 여기서 퀴즈 하나 나갑니다. 익명 함수는 어떻게 재귀 호출을 할 수 있을까요?</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction1</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a ? a : a + myFunction1(a - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> myFunction2 = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'return a ? a : a + /**여기에 뭐가 들어가야 할까요?**/(a - 1);'</span>, <span class="string">'a'</span>);</span><br></pre></td></tr></table></figure>
+<p>당연하게도 <strong>자신</strong>을 가르키는 <strong>이름</strong>이 없기 때문에 식별자를 통한 직접적인 참조가 불가능합니다.</p>
+<p>이러한 문제를 해결하기 위해 자바스크립트는 <code>arguments.callee</code> 프로퍼티를 추가했습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myFunction2 = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'return a ? a : a + arguments.callee(a - 1);'</span>, <span class="string">'a'</span>);</span><br></pre></td></tr></table></figure>
+<p>하지만 다들 아시다시피, ES3에서 함수 표현식이 추가된 이후, <code>Function</code> 생성자의 사용 빈도가 급격히 줄었습니다.<br>그리고 함수 표현식은 선택적으로 식별자를 지정할 수 있게 해 주지요.<br>그래서 지금은 더 이상 안 쓰이는 테크닉입니다. <del>정말 희귀한 케이스가 아닌 이상 안 씁니다.</del></p>
+<h1 id="Seeing-internal-of-arguments-object"><a href="#Seeing-internal-of-arguments-object" class="headerlink" title="Seeing internal of arguments object"></a>Seeing internal of arguments object</h1><p>자, 지금부터 본격적으로 <code>arguments</code> 객체의 내부를 열어보도록 하겠습니다.</p>
+<p>가장 먼저 <code>arguments</code> 객체가 생성되는 부분을 보도록 하겠습니다.</p>
+<p><strong>NOTICE</strong>: 이 글에서는 <a href="https://www.ecma-international.org/ecma-262/9.0/index.html" target="_blank" rel="noopener">ECMA-262, 9th edition</a> 을 해설 목적으로 사용하고 있습니다.</p>
+<p><img src="/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png" alt="CreateMappedArgumentsObject"></p>
+<p><img src="/images/You-don-t-know-Arguments-Object/CreateUnmappedArgumentsObject.png" alt="CreateUnmappedArgumentsObject"></p>
+<p>엇, <code>arguments</code> 객체를 생성하는 Abstract operation 이 두개네요?<br>네, 보시다시피 <code>arguments</code> 객체는 내부적으로 두 가지 종류가 있습니다.<br>하나는 Mapped Arguments 객체구요, 하나는 Unmapped Arguments 객체입니다.</p>
+<p>Unmapped Arguments 객체는 함수가 strict mode 이거나, 함수의 파라매터 정의에 ES6의 feature(기본 매개변수, 디스트럭쳐링 바인딩 패턴, 나머지 매개변수)가 사용된 경우에 만들어지고,<br>그렇지 않은 경우에는 Mapped Arguments 객체가 만들어집니다.</p>
+<p>두 객체의 차이를 한번 알아본 뒤, 명세를 이어서 읽어보도록 하겠습니다.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Mapped Arguments Object</th>
+<th>Unmapped Arguments Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2-way data binding</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>kind of object</td>
+<td>exotic</td>
+<td>ordinary</td>
+</tr>
+<tr>
+<td>uses [[ParameterMap]]</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>throw error when someone tried to access ‘callee’ property</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>자, 먼저 가장 간단한 Unmapped Arguments 객체를 생성하는 <code>CreateUnmappedArgumentsObject</code> 를 읽어보도록 하지요.</p>
+<p><img src="/images/You-don-t-know-Arguments-Object/CreateUnmappedArgumentsObject.png" alt="CreateUnmappedArgumentsObject"></p>
+<p>여기서 <code>argumentList</code>는 전달인자들의 배열이라고 생각하셔도 무방합니다.(ex: <code>f(1, 2)</code> 라면 <code>argumentList</code>는 <code>[1, 2]</code>)</p>
+<ul>
+<li>1. <code>len</code> 이라는 변수를 만들고, <code>argumentList</code>의 길이로 초기화합니다.</li>
+<li>2. <code>Object.prototype</code>을 프로토타입으로 갖는 객체를 만들고, <code>[[ParameterMap]]</code> 이라는 내부 프로퍼티를 추가합니다. 그 후 만들어진 객체를 <code>obj</code>라는 변수에 넣습니다. 이 객체는 차후 Unmapped Arguments 객체가 됩니다.</li>
+<li>3. <code>obj.[[ParameterMap]]</code>을 <code>undefined</code>로 초기화합니다. (왜냐면 Unmapped Arguments 객체니까요!)</li>
+<li>4. <code>obj</code> 에 값이 <code>len</code>이고 키가 <code>length</code>인 프로퍼티를 정의합니다.</li>
+<li>5~6. <code>obj</code>에 <code>argumentList</code>에 있는 각 argument을 값으로, 각 인덱스를 키로 하는 프로퍼티들을 정의합니다.</li>
+<li>7. <code>obj</code>에 <code>Symbol.iterator</code>을 키로, <code>Array.prototype.values</code>를 값으로 하는 프로퍼티를 정의합니다.</li>
+<li>8. <code>obj</code>에 <code>callee</code>라는 accessor 프로퍼티를 정의합니다. Getter와 Setter 모두 호출 즉시 <code>TypeError</code>를 <code>throw</code> 하는 함수를 넣었습니다.</li>
+<li>9. 완성된 Unmapped Arguments 객체를 반환합니다.</li>
+</ul>
+<p>이게 Unmapped Arguments 객체의 전부입니다! 간단하지요?<br>이제 본격적으로, 좀 더 어려운 녀석을 살펴보도록 하겠습니다.<br>바로 Mapped Arguments 객체지요.</p>
+<p><img src="/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png" alt="CreateMappedArgumentsObject"></p>
+<p>여기서 <code>func</code>는 호출된 함수 객체, <code>formals</code>는 함수의 매개변수가 있는 코드 조각(소스 코드), <code>argumentsList</code>는 매개변수들의 리스트(배열), <code>env</code>는 여러분들이 잘 아시는 Environment Record 입니다.</p>
+<ul>
+<li>2. <code>len</code> 이라는 변수를 만들고, <code>argumentList</code>의 길이로 초기화합니다.</li>
+<li>3. <code>obj</code> 라는 변수에 <code>[[ParameterMap]]</code> 이라는 내부 프로퍼티를 가지는 빈 객체를 넣습니다.</li>
+<li>4~9. <code>obj</code> 객체에 객체의 기본적인 동작(프로퍼티 접근, 변경, 삭제 등등등)을 정의하는 메서드들을 주입합니다.</li>
+<li>10. <code>obj</code>의 프로토타입을 <code>Object.prototype</code>으로 설정합니다.</li>
+<li>11. <code>obj</code>를 확장할 수 있는 객체로 만듭니다.</li>
+<li>12. <code>map</code> 이라는 변수를 만들고 빈 객체로 초기화합니다.</li>
+<li>13. <code>obj.[[ParameterMap]]</code> 을 <code>map</code>으로 설정합니다.</li>
+<li>14. <code>parameterNames</code> 라는 변수를 만들고, <code>formals</code>에 있는 매개변수 식별자들의 리스트로 초기화합니다.</li>
+<li>15~17. <code>obj</code>에 <code>argumentList</code>에 있는 각 argument을 값으로, 각 인덱스를 키로 하는 프로퍼티들을 정의합니다.</li>
+<li>18. <code>obj</code> 에 값이 <code>len</code>이고 키가 <code>length</code>인 프로퍼티를 정의합니다.</li>
+<li>19~21. <code>obj</code>와 호출된 함수의 스코프간의 양방향 데이터 바인딩을 구현하기 위한 코드들입니다. (이 부분은 잠시 후에 다시 살펴보겠습니다.)</li>
+<li>22. <code>obj</code>에 <code>Symbol.iterator</code>을 키로, <code>Array.prototype.values</code>를 값으로 하는 프로퍼티를 정의합니다.</li>
+<li>23. <code>obj</code>에 <code>&#39;callee&#39;</code>을 키로, 호출된 함수를 값으로 하는 프로퍼티를 정의합니다.</li>
+<li>24. 완성된 Mapped Arguments 객체를 반환합니다.</li>
+</ul>
+<p>자, 여기까지는 Mapped Arguments 객체가 생성되는 과정이였습니다.<br>그럼 이제 어떻게 양방향 바인딩이 구현되었는지 살펴보도록 하지요.</p>
+<p><img src="/images/You-don-t-know-Arguments-Object/magic.png" alt="2-way data binding"></p>
+<ul>
+<li>19. <code>mappedNames</code> 라는 변수를 만들고 빈 리스트로 초기화합니다.</li>
+<li>20. <code>index</code> 라는 변수를 만들고, <code>numberOfParameters - 1</code> 한 값을 넣습니다. &lt;– <code>numberOfParameters</code>의 값은 <code>parameterNames</code>의 길이입니다.</li>
+<li>21. <code>index</code> 가 0보다 작아질때까지 아래의 단계를 반복합니다.<ul>
+<li>a. <code>name</code> 이라는 변수를 만들고, 그 값을 <code>parameterNames[index]</code>(<code>parameterNames</code> 가 리스트이므로 <code>index</code> 번째 요소를 가져오는 것 입니다.) 로 합니다.</li>
+<li>b. 만약 <code>name</code> 이 <code>mappedNames</code>에 포함되있지 않다면,<ul>
+<li>i. <code>name</code>을 <code>mappedNames</code>의 가장 마지막 요소로서 추가합니다(push).</li>
+<li>ii. 만약 <code>index &lt; len</code> 이라면,<ul>
+<li>1. <code>g</code>라는 변수를 만들고, <code>MakeArgGetter(name, env)</code>의 결과값으로 초기화합니다. (<code>MakeArgGetter</code>는 이따 살펴보겠습니다.)</li>
+<li>2. <code>p</code>라는 변수를 만들고, <code>MakeArgSetter(name, env)</code>의 결과값으로 초기화합니다. (<code>MakeArgSetter</code>도 이따 살펴보겠습니다.)</li>
+<li>3. <code>map</code>에 <code>String(index)</code>를 키로 하고, <code>g</code>를 Getter로, <code>p</code>를 Setter로 하는 접근자 프로퍼티를 정의합니다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>c. <code>index</code>의 값을 <code>1</code> 줄입니다.</li>
+</ul>
+</li>
+</ul>
+<p>처음에 <code>CreateMappedArgumentsObject</code>를 설명해드릴 때 생략한 부분인데요.<br>이 부분에서는 <code>arguments</code> 객체의 프로퍼티와, 호출된 함수의 스코프를 이어주는 접근자를 생성해주는 <code>MakeArgGetter</code>와 <code>MakeArgSetter</code>을 이용해<br>각 매개변수와 <code>arguments</code>에 들어있는 전달인자의 값을 연결시켜주고 있습니다.</p>
+<p>자, 그럼 이제 <code>MakeArgGetter</code>와 <code>MakeArgSetter</code>가 어떻게 둘을 이어주는 지 알아보도록 하겠습니다.</p>
+<p><img src="/images/You-don-t-know-Arguments-Object/MakeArgGetter.png" alt="MakeArgGetter"></p>
+<p><code>name</code>은 아시다시피 매개변수의 이름이구요, <code>env</code>는 Running Execution Context의 Lexical Environment의 Environment Record 입니다.<br>(쉽게말해 현재 실행중인 코드의 스코프라는 이야기입니다.)</p>
+<ul>
+<li>1. <code>steps</code> 라는 변수를 만들고 아래에 있는 <code>ArgGetter</code> 함수로 초기화합니다.</li>
+<li>2. <code>getter</code> 이라는 변수를 만들고, <code>CreateBuiltinFunction(steps, &lt;&lt; [[Name]], [[Env]] &gt;&gt;)</code> 의 결과값으로 초기화합니다. <code>ArgGetter</code> 을 호출할 수 있는 <strong>자바스크립트의 함수</strong>로 만들고, 내부 프로퍼티인 <code>[[Name]]</code> 과 <code>[[Env]]</code>를 정의하는 겁니다.)</li>
+<li>3. <code>getter.[[Name]]</code>의 값을 <code>name</code>으로 설정합니다.</li>
+<li>4. <code>getter.[[Env]]</code>의 값을 <code>env</code>로 설정합니다.</li>
+<li>5. <code>getter</code>를 반환합니다.</li>
+</ul>
+<p>아쉽게도 <code>MakeArgGetter</code>에는 직접적으로 둘을 이어주는 로직은 없습니다. 그건 <code>ArgGetter</code>의 역할이거든요.<br>자, 이제 <code>ArgGetter</code>을 보도록 하겠습니다.(<code>ArgGetter</code>에서 <code>f</code>는 호출된 <code>ArgGetter</code>를 의미합니다. <code>arguments.callee</code>와 같게 보셔도 무방합니다.!)</p>
+<ul>
+<li>1. <code>name</code>이라는 변수를 선언하고, 그 <code>f.[[Name]]</code>으로 초기화합니다.</li>
+<li>2. <code>env</code>이라는 변수를 선언하고, 그 <code>f.[[Env]]</code>으로 초기화합니다.</li>
+<li>3. <code>env.GetBindingValue(name, false)</code>의 결과값을 반환합니다.(아까 받은 스코프에서 <code>name</code>과 묶인 값을 찾는 부분입니다.)</li>
+</ul>
+<p>그리 어렵지는 않지요? 그럼 이제 <code>MakeArgSetter</code>를 보도록 하겠습니다.</p>
+<p><img src="/images/You-don-t-know-Arguments-Object/MakeArgSetter.png" alt="MakeArgSetter"></p>
+<p>여기서도 <code>name</code>은 매개변수의 이름이구요, <code>env</code>는 Running Execution Context의 Lexical Environment의 Environment Record 입니다.</p>
+<ul>
+<li>1. <code>steps</code> 라는 변수를 만들고 아래에 있는 <code>ArgSetter</code> 함수로 초기화합니다.</li>
+<li>2. <code>setter</code> 이라는 변수를 만들고, <code>CreateBuiltinFunction(steps, &lt;&lt; [[Name]], [[Env]] &gt;&gt;)</code> 의 결과값으로 초기화합니다. <code>ArgSetter</code> 을 호출할 수 있는 <strong>자바스크립트의 함수</strong>로 만들고, 내부 프로퍼티인 <code>[[Name]]</code> 과 <code>[[Env]]</code>를 정의하는 겁니다.)</li>
+<li>3. <code>setter.[[Name]]</code>의 값을 <code>name</code>으로 설정합니다.</li>
+<li>4. <code>setter.[[Env]]</code>의 값을 <code>env</code>로 설정합니다.</li>
+<li>5. <code>setter</code>를 반환합니다.</li>
+</ul>
+<p><code>MakeArgSetter</code>에도 직접적으로 <code>arguments</code> 객체의 프로퍼티와 함수의 스코프에 있는 변수를 이어주는 로직은 없습니다.<br>그건 <code>ArgSetter</code>의 역할이기 때문이죠.<br>자, 이제 <code>ArgSetter</code>을 보도록 하겠습니다.(여기서도 <code>f</code>는 호출된 <code>ArgSetter</code>입니다., <code>value</code>는 다들 아시는 setter의 매개변수(새로 set 될 값)입니다.)</p>
+<ul>
+<li>1. <code>name</code>이라는 변수를 선언하고, 그 <code>f.[[Name]]</code>으로 초기화합니다.</li>
+<li>2. <code>env</code>이라는 변수를 선언하고, 그 <code>f.[[Env]]</code>으로 초기화합니다.</li>
+<li>3. <code>env.SetMutableBinding(name, value, false)</code>의 결과값을 반환합니다.(아까 받은 스코프에서 <code>name</code>과 묶인 값을 변경하는 부분입니다.)</li>
+</ul>
+<p>자, 이렇게 우리는 기초적인 부분들을 살펴 보았습니다.<br>하지만 아직 여러분들이 보지 않은 부분이 있습니다. 바로 위에서 우리가 양방향 바인딩을 위해 만들고 <code>arguments</code>에 붙인 접근자들이 호출되는 부분들이죠.<br>지금부터는 그 부분들을 찾아서 보도록 하겠습니다.</p>
+<p>그 전에, 기반 지식에 대한 간단한 설명을 먼저 하도록 하겠습니다.<br>자바스크립트의 객체들의 시멘틱은 <strong>internal method</strong>라는 것에 의해 정의됩니다.<br>어떤 객체에 대한 동작/연산들이 <strong>internal method</strong> 라는 것을 통해 정의된다는 이야기인데요.<br>다만, 불규칙하게 정의되면 구현체 뿐만 아니라 명세에서도 각 객체를 위한 로직을 따로 작성해야 하므로 그 불편함을 없에기 위해 자바스크립트 명세에서는 기본적인 동작들을 위한 인터페이스를 정의하고, 최소한의 조건을 명시하고 있습니다.<br>또한, 자바스크립트 명세에서는 특별한 internal method가 필요하지 않은 객체들을 위해 앞서 언급한 최소한의 조건을 충족하는(또한 default behavior인) internal method들을 제공하고 있습니다.<br>만약, 한 객체의 기본적인 동작들을 구현하고 있는 internal method들이 전부 default behavior인 internal method라면, 그 객체를 ordinary 객체라고 부릅니다.<br>그렇지 않다면 Exotic 객체라고 부르지요. 위의 <code>arguments</code> 객체의 경우도 Unmapped arguments 객체는 ordinary 객체, Mapped arguments 객체는 Exotic 객체입니다.</p>
+<p>Mapped arguments 객체는 Exotic 객체다. 감이 오지 않으시나요?<br>Mapped arguments 객체는 객체의 몇몇(Get/Set/Delete …etc) 연산이 default behavior가 아닌, 다른 말로 <strong>특별한 로직이 있는 객체입니다</strong>.</p>
+<p>자, 그럼 지금부터 위에서 살펴본 접근자들을 호출하는 로직이 들어있는, arguments 객체의 프로퍼티 접근/수정 연산을 다루는 <code>[[Get]]</code> internal method와 <code>[[Set]]</code> internal method를 살펴보도록 하겠습니다.</p>
+<p><img src="/images/You-don-t-know-Arguments-Object/Get.png" alt="\[\[Get\]\]"></p>
+<p>여기서 <code>P</code>는 접근할 프로퍼티 키, <code>Receiver</code>는 접근할 프로퍼티가 접근자 프로퍼티라면, 적절한 접근자를 호출하게 되는데 이 때 접근자의 <code>this</code> 값으로서 사용되는 값 입니다.</p>
+<ul>
+<li>1. <code>args</code> 라는 변수를 선언하고, 이 internal method가 담겨있는 <code>arguments</code> 객체로 초기화합니다.</li>
+<li>2. <code>map</code> 이라는 변수를 선언하고, <code>args.[[ParameterMap]]</code> 으로 초기화합니다.</li>
+<li>3. <code>isMapped</code> 라는 변수를 선언하고, <code>! HasOwnProperty(map, P)</code> 의 결과로 초기화합니다. (자바스크립트 코드로 표현하자면 <code>map.hasOwnProperty(P)</code>와 같은 로직입니다.)</li>
+<li>4~5. 만약 <code>isMapped</code>가 <code>false</code>라면 <code>arg</code>(<code>arguments</code>)객체에서 프로퍼티를 찾고 그 결과를 반환합니다.</li>
+<li>6. 그렇지 않은 경우, <code>map</code> 객체에서 프로퍼티를 찾고 그 결과를 반환합니다.(프로퍼티를 찾을 때, 찾은 프로퍼티가 접근자 프로퍼티이면, 그 프로퍼티의 Get 접근자를 실행시킵니다. 이 부분이 바로 우리의 <code>ArgsGetter</code> 접근자가 호출되는 부분입니다.)</li>
+</ul>
+<p>짠, 거이 다 왔습니다. 힘내세요!<br>지금부터 볼 녀석은 <code>[[Set]]</code> internal method 입니다.</p>
+<p><img src="/images/You-don-t-know-Arguments-Object/Set.png" alt="\[\[Set\]\]"></p>
+<p>여기서도 <code>P</code>는 접근할 프로퍼티 키, <code>Receiver</code>도 접근할 프로퍼티가 접근자 프로퍼티라면, 적절한 접근자를 호출하게 되는데 이 때 접근자의 <code>this</code> 값으로서 사용되는 값 입니다.<br>그리고.. <code>V</code>는 새로 설정중인 값 입니다.</p>
+<p><strong>NOTICE</strong>: <code>isMapped</code> 변수의 스코프가 이상해 보이신다면, 정상이십니다. 저도 방금 알았네요. 이슈로 올려야겠어요.</p>
+<ul>
+<li>1. <code>args</code> 라는 변수를 선언하고, 이 internal method가 담겨있는 <code>arguments</code> 객체로 초기화합니다.</li>
+<li>2 &amp; 5. <code>SameValue(args, Receiver)</code> 가 <code>false</code> 라면 <code>args</code> 객체에 키가 <code>P</code>이고 값이 <code>V</code>인 프로퍼티를 설정하고 그 결과를 반환합니다.</li>
+<li>3 &amp; 4. <code>args.[[ParameterMap]]</code> 객체에 <code>P</code>를 키로 갖는 프로퍼티가 있으면 그 프로퍼티에 <code>V</code>를 설정합니다(여기서 <code>ArgSetter</code>가 호출됩니다!)</li>
+<li>5. <code>args</code> 객체에 키가 <code>P</code>이고 값이 <code>V</code>인 프로퍼티를 설정하고 그 결과를 반환합니다.</li>
+</ul>
+<h1 id="Time-to-explain"><a href="#Time-to-explain" class="headerlink" title="Time to explain!"></a>Time to explain!</h1><p>자, 지금까지 우리는 arguments 객체의 종류, arguments 객체가 어떻게 생성되는 과정, 어떻게 양방향 데이터 바인딩을 구현했는지를 보았습니다.<br>이 정도면 여러분들 스스로를 <strong><code>arguments</code> 학사</strong> 라고 칭하셔도 됩니다.(이 글에서 다루지 않은 디테일하지만 크게 중요하지는 않은 사항들이 남았거든요..ㅜㅜ)</p>
+<p>자, 이제 마지막으로, 글의 서문에서 여러분들이 풀은 문제에 대한 해설을 지금까지 배운 지식들을 기반으로 해설해드리도록 하겠습니다.</p>
+<p>1번 문제: Mapped arguments 객체는 자신의 프로퍼티의 변경사항을 매개변수에 반영시킵니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem1</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> [a, b, c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem1(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure></p>
+<p>정답: <code>[100, 2, 3]</code></p>
+<p>간단한 문제입니다. <code>problem1</code> 에서의 <code>arguments</code> 객체는 Mapped Arguments 객체이기 때문에, <code>arguments[0]</code>과 <code>a</code> 사이의 바인딩이 생기게 됩니다.<br>그래서 <code>arguments[0]</code>을 수정했을 때, 그 변경사항이 <code>a</code>에도 반영된 것이지요.</p>
+<p>2번 문제: <code>[[ParameterMap]]</code>가 공유한 프로퍼티는 <code>arguments</code> 객체의 own 프로퍼티가 아닙니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem2</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.hasOwnProperty(<span class="built_in">arguments</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem2(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure></p>
+<p>정답: <code>false</code></p>
+<p><code>arguments</code> 객체를 통해 <code>arguments.[[ParameterMap]]</code> 에 있는 프로퍼티를 접근할 수 있음에도 불구하고, 접근할 수 있는 프로퍼티들이 <code>arguments</code> 객체에 정의되있는 프로퍼티는 아니기에 <code>false</code>가 나옵니다.<br>여담으로, 프로토타입 객체의 프로퍼티가 공유되는 방식은 <code>arguments.[[ParameterMap]]</code>의 프로퍼티가 공유되는 방식과 같은 방식입니다.</p>
+<p>3번 문제: Unmapped arguments 객체는 자신의 프로퍼티의 변경사항을 매개변수에 반영시키지 않습니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem3</span>(<span class="params">a, b, c = <span class="number">10</span></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">return</span> [a, b, c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem3(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure></p>
+<p>정답: <code>[1, 2, 10]</code></p>
+<p><code>problem3</code>의 매개변수 중, <code>c</code>가 기본값 문법을 사용하고 있기 때문에 Mapped arguments 객체가 아닌 Unmapped arguments 객체가 생성됩니다.<br>그리고.. 아시다시피 Unmapped arguments 객체는 양방향 바인딩을 구현하고 있지 않지요. 그래서 <code>arguments</code> 객체의 프로퍼티를 수정하여도 그 변경사항이 <code>problem3</code>의 매개변수에게 반영되지 않습니다.</p>
+<p>4번 문제: <code>arguments.callee</code>는 Unmapped arguments 객체에서 접근할 수 없습니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem4</span>(<span class="params">a, b, c = <span class="number">10</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">arguments</span>.callee;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem4(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure></p>
+<p>정답: 반환값 없음(<code>TypeError</code>)</p>
+<p>여기서도 문제 3과 같은 이유로 Unmapped arguments 객체가 생성됩니다. 아시다시피 Unmapped arguments 객체의 <code>callee</code> 프로퍼티는<br>get 이든 set 이든 <code>TypeError</code>를 일으키는 접근자로만 이루어진 접근자 프로퍼티입니다.</p>
+<p>5번 문제: <code>arguments</code> 객체는 배열이 아닙니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">2</span>] = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">problem5(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 반환값을 맞추어 보세요!</span></span><br></pre></td></tr></table></figure></p>
+<p>정답: <code>[1, 2]</code></p>
+<p>아까 우리가 살펴 본 <code>[[Set]]</code> internal method에는 프로퍼티의 수가 변경되었다고 해서 <code>arguments</code> 객체의 <code>length</code> 프로퍼티를 수정하는 로직을 가지고 있지 않았습니다.<br>하지만 <code>Array.prototype.slice</code> 메서드는 주어진 객체의 <code>length</code>를 가지고 주어진 객체를 탐색하고 복사하지요.<br>그렇기에 <code>Array.prototype.slice</code>는 <code>length</code>(2)만 보고 <code>arguments</code> 객체의 <code>&#39;2&#39;</code>을 키로 갖는 프로퍼티를 복사하지 않게 됩니다.</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>후우, 드디어 이 길고 긴 글이 끝을 맺게 되었네요.<br>부족한 필력에도 뒤로가기를 누르시지 않고 여기까지 읽어주셔서 감사합니다 :)<br>다음에는 더 좋은 자료로 돌아오도록 하겠습니다. 모두 즐거운 금요일 되세요!</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://environmentset.github.io/2019/01/31/You-don-t-know-Arguments-Object/" data-id="cjs1mdc71004rbxjyia5mlbz9" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100015357423292" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ENvironmentSet" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/02/12/Learn-you-a-React-for-good-preface/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">새로운</strong>
+        <p class="article-nav-title">
+        
+            Learn you a React for good - preface
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">오래된</strong>
+        <p class="article-nav-title">objectel: Event-Driven Reactive Programming Library</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">최근 글</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Learn-you-a-React-for-good-preface/React.png)" alt="Learn you a React for good - preface" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></p>
+                            <p class="item-title"><a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="title">Learn you a React for good - preface</a></p>
+                            <p class="item-date"><time datetime="2019-02-12T10:11:32.000Z" itemprop="datePublished">2019-02-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png)" alt="You don&#39;t know everything of arguments object" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="title">You don&#39;t know everything of arguments object</a></p>
+                            <p class="item-date"><time datetime="2019-01-31T14:20:13.000Z" itemprop="datePublished">2019-01-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/be-reactive.jpg)" alt="objectel: Event-Driven Reactive Programming Library" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="title">objectel: Event-Driven Reactive Programming Library</a></p>
+                            <p class="item-date"><time datetime="2019-01-16T16:32:14.000Z" itemprop="datePublished">2019-01-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/06/Stop-using-CSS-with-React/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/stop-using-css-with-react.jpeg)" alt="Stop using CSS with React" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/06/Stop-using-CSS-with-React/" class="title">Stop using CSS with React</a></p>
+                            <p class="item-date"><time datetime="2019-01-05T15:20:04.000Z" itemprop="datePublished">2019-01-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/23/My-Old-Blog/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/09/23/My-Old-Blog/" class="title">My Old Blog</a></p>
+                            <p class="item-date"><time datetime="2018-09-22T18:35:50.000Z" itemprop="datePublished">2018-09-23</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">카테고리</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notice/">Notice</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">1월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">9월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">6월 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">태그</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Driven-programming/">Event Driven programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functional-programming/">Functional programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notice/">Notice</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-programming/">Reactive programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TMI/">TMI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anti-pattern/">anti-pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/objectel/">objectel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proposal/">proposal</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Event-Driven-programming/" style="font-size: 10px;">Event Driven programming</a> <a href="/tags/Functional-programming/" style="font-size: 10px;">Functional programming</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Notice/" style="font-size: 10px;">Notice</a> <a href="/tags/React/" style="font-size: 13.33px;">React</a> <a href="/tags/Reactive-programming/" style="font-size: 10px;">Reactive programming</a> <a href="/tags/TMI/" style="font-size: 16.67px;">TMI</a> <a href="/tags/anti-pattern/" style="font-size: 10px;">anti-pattern</a> <a href="/tags/objectel/" style="font-size: 10px;">objectel</a> <a href="/tags/proposal/" style="font-size: 10px;">proposal</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Jaewon Seo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'environmentset-io';
+    
+    
+    var disqus_url = 'https://environmentset.github.io/2019/01/31/You-don-t-know-Arguments-Object/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

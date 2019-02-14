@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="naver-site-verification" content="ee028044c5e9da73dd80dcf1c6286530dc9b5344"/>
+
+    
+
+    
+    <title>새로운 문법을 소개합니다! | ENvironmentSet</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="JavaScript,React" />
+    
+    <meta name="description" content="이 글은 Learn you a React for good 시리즈의 일부입니다.  가장 유명한 프론트엔드 프레임워크를 뽑으라고 하면 어떤 프레임워크들이 나올까요?유명한 자바스크립트 트랜딩 분석 사이트인 stateofjs의 2018년 설문의 결과는 아래와 같이 나왔습니다.  보아하니 리액트, 뷰, 앵귤러가 상위권에 있네요.뷰와 앵귤러는 각각의 템플릿 문법이">
+<meta name="keywords" content="JavaScript,React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="새로운 문법을 소개합니다!">
+<meta property="og:url" content="https://environmentset.github.io/2019/02/15/Let-s-introduce-new-syntax-JSX/index.html">
+<meta property="og:site_name" content="ENvironmentSet">
+<meta property="og:description" content="이 글은 Learn you a React for good 시리즈의 일부입니다.  가장 유명한 프론트엔드 프레임워크를 뽑으라고 하면 어떤 프레임워크들이 나올까요?유명한 자바스크립트 트랜딩 분석 사이트인 stateofjs의 2018년 설문의 결과는 아래와 같이 나왔습니다.  보아하니 리액트, 뷰, 앵귤러가 상위권에 있네요.뷰와 앵귤러는 각각의 템플릿 문법이">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://environmentset.github.io/images/Let-s-introduce-new-syntax-JSX/frontend-frameworks.png">
+<meta property="og:updated_time" content="2019-02-14T20:49:51.080Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="새로운 문법을 소개합니다!">
+<meta name="twitter:description" content="이 글은 Learn you a React for good 시리즈의 일부입니다.  가장 유명한 프론트엔드 프레임워크를 뽑으라고 하면 어떤 프레임워크들이 나올까요?유명한 자바스크립트 트랜딩 분석 사이트인 stateofjs의 2018년 설문의 결과는 아래와 같이 나왔습니다.  보아하니 리액트, 뷰, 앵귤러가 상위권에 있네요.뷰와 앵귤러는 각각의 템플릿 문법이">
+<meta name="twitter:image" content="https://environmentset.github.io/images/Let-s-introduce-new-syntax-JSX/frontend-frameworks.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131792068-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">I LOVE JavaScript</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Notice/">Notice</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="뭔가 입력하세요...!" />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: '페이지들',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(무제)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-Let-s-introduce-new-syntax-JSX" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        새로운 문법을 소개합니다!
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/02/15/Let-s-introduce-new-syntax-JSX/" class="article-date">
+            <time datetime="2019-02-14T20:49:51.000Z" itemprop="datePublished">2019-02-15</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/React/">React</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>이 글은 <a href="https://environmentset.github.io/2019/02/12/Learn-you-a-React-for-good-preface/">Learn you a React for good</a> 시리즈의 일부입니다.</p>
+</blockquote>
+<p>가장 유명한 프론트엔드 프레임워크를 뽑으라고 하면 어떤 프레임워크들이 나올까요?<br>유명한 자바스크립트 트랜딩 분석 사이트인 <a href="https://stateofjs.com/" target="_blank" rel="noopener">stateofjs</a>의 2018년 설문의 결과는 아래와 같이 나왔습니다.</p>
+<p><img src="/images/Let-s-introduce-new-syntax-JSX/frontend-frameworks.png" alt="React"></p>
+<p>보아하니 리액트, 뷰, 앵귤러가 상위권에 있네요.<br>뷰와 앵귤러는 각각의 템플릿 문법이 존재하는 반면에 리액트는 템플릿이 없습니다.<br>대신, JSX라 불리는 문법이 존재합니다.<br>이번 글에서는 JSX에 대해 알아보도록 하겠습니다.</p>
+<h1 id="JSX란-무엇인가요"><a href="#JSX란-무엇인가요" class="headerlink" title="JSX란 무엇인가요?"></a>JSX란 무엇인가요?</h1><p>앞선 글에서 제가 리액트 어플리케이션은 리액트 엘리먼트들로 구성되어 있다고 이야기를 해드렸었지요?<br>리액트 엘리먼트는 <code>React.createElement</code> 라는 메서드를 통해 생성됩니다.<br>하지만, 이런 방식에는 문제가 있습니다.<br>바로 자바스크립트 함수는 화면을 표현하는 일에 특화되있지 않다는 점인데요.<br>다음 예시에서도 보실 수 있으시다시피 자바스크립트 함수는 뷰나 앵귤러 같은 프레임워크들의 템플릿 문법보다 화면을 표현하는 부분에서 뒤떨어집니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">React.createElement(<span class="string">'p'</span>, <span class="literal">null</span>, <span class="string">'I\'m Text!'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 보다 이게 낫지요</span></span><br><span class="line">&lt;p&gt;I<span class="string">'m Text!&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 엘리먼트들이 많으면 많을수록 둘 사이의 격차는 더 벌어집니다.</span></span><br><span class="line"><span class="string">React.createElement(</span></span><br><span class="line"><span class="string">  '</span>div<span class="string">',</span></span><br><span class="line"><span class="string">  &#123; id: '</span>app<span class="string">' &#125;,</span></span><br><span class="line"><span class="string">  React.createElement(</span></span><br><span class="line"><span class="string">    '</span>h1<span class="string">',</span></span><br><span class="line"><span class="string">    null,</span></span><br><span class="line"><span class="string">    '</span>I\<span class="string">'m so big!'</span></span><br><span class="line">  ),</span><br><span class="line">  React.createElement(</span><br><span class="line">    <span class="string">'a'</span>,</span><br><span class="line">    &#123; <span class="attr">herf</span>: <span class="string">'https://reactjs.org/'</span> &#125;,</span><br><span class="line">    <span class="string">'Welcom to react world!'</span></span><br><span class="line">  )</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">&lt;div id=<span class="string">'app'</span>&gt;</span><br><span class="line">  &lt;h1&gt;I<span class="string">'m so big&lt;/h1&gt;</span></span><br><span class="line"><span class="string">  &lt;a herf='</span>https:<span class="comment">//reactjs.org/'&gt;Welcom to react world!&lt;/a&gt;</span></span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+<p>이런 문제를 해결하기 위해 리액트는 자바스크립트의 문법의 연장선에 있는 새로운 문법, JSX를 만들었습니다.</p>
+<blockquote>
+<p><strong>NOTE:</strong></p>
+<p>JSX는 순수히 자바스크립트 함수(<code>React.createElement</code>)호출 표현식의 표현력 문제를 해결하기 위한 문법이기 때문에 표현력을 극대화시키기 위해서 마크업 언어의 문법과 똑 닮게 설계되었습니다.</p>
+</blockquote>
+<h1 id="왜-JSX인가요"><a href="#왜-JSX인가요" class="headerlink" title="왜 JSX인가요?"></a>왜 JSX인가요?</h1><p>뷰와 앵귤러는 각각의 템플릿을 가지고 있습니다.<br>이는 개발자가 필수적으로 학습해야 하는 것이기 때문에 결과적으로 학습 비용을 늘리게 됩니다.<br>또한 그 시멘틱(언어의 의미론)또한 자체적으로 구성되었기 때문에 자바스크립트 개발자들이 필히 이질감을 느끼게 되어 있습니다.<br>(예를 들어, 앵귤러에서는 <a href="https://angular.kr/guide/template-syntax" target="_blank" rel="noopener">템플릿에서 몇몇 유형의 코드를 작성하는 것을 금지하고 있습니다</a>.)</p>
+<p>하지만 JSX는 자바스크립트의 문법의 연장선에 있는 문법이기 때문에 자바스크립트의 시멘틱에서 벗어나지 않으며,<br><code>React.createElement</code>라는 메서드를 호출하는 문법적 설탕(syntactic sugar)이므로 학습이 강제되지도 않습니다.</p>
+<p>또한 템플릿을 통해 화면을 표현한다 하여도 결국에는 이벤트 핸들링 등을 위해 자바스크립트 코드와 템플릿을 결합시키게 됩니다.<br>이 때, 둘 사이의 결합도는 절대 낮다고 할 수 없는데요, 양방향 바인딩을 사용하는 경우에는 둘의 결합도는 가장 높은 단계인 내용 결합도(Content Coupling)에 해당하게 됩니다.<br>양방향 바인딩이 아니어도, 이벤트 리스너를 등록하는 일을 해야 하기 때문에 최소한 제어 결합도(Control Coupling)에 해당하게 됩니다.<br>리액트는 이렇게 억지스러운 관심사의 분리를 실천하기 보다는 차라리 템플릿 + 로직을 합친 추상화의 단위인 컴포넌트를 형성하기로 결정하였습니다.<br>템플릿(마크업)과 로직을 합치는 과정에서, 리액트는 마크업을 자연스럽게 코드에 녹일 문법이 필요했고(<code>React.createElement</code>는 마크업처럼 보이지 않잖아요.), 그것이 바로 JSX 입니다.</p>
+<h1 id="React-createElement와-친해지기"><a href="#React-createElement와-친해지기" class="headerlink" title="React.createElement와 친해지기"></a><code>React.createElement</code>와 친해지기</h1><p>JSX는 <code>React.createElement</code>를 호출하는 표현식의 문법적 설탕이기 때문에 <code>React.createElement</code> 없이는 설명해드릴 수 없는 문법입니다.<br>그러니, 잠시 <code>React.createElement</code>에 대해 알아보도록 하겠습니다.</p>
+<p>여러 번 말씀드리지만, <code>React.createElement</code>는 리액트 엘리먼트를 생성하기 위해 사용되는 메서드입니다.<br>리액트 엘리먼트를 생성하려면 무엇이 필요했지요? 네 그렇습니다, 컴포넌트와 그 컴포넌트에게 줄 <code>props</code>가 필요합니다.<br>그래서 <code>React.createElement</code>의 콜 시그너쳐(call signature)는 대략 이렇게 생겼습니다.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 타입스크립트 버전</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>&lt;<span class="title">P</span> <span class="title">extends</span> <span class="title">object</span>&gt;(<span class="params"><span class="keyword">type</span>: <span class="built_in">string</span> | Component&lt;P&gt;, props?: P, ...children: <span class="built_in">Array</span>&lt;ReactElement&gt;</span>): <span class="title">ReactElement</span></span></span><br><span class="line"><span class="function">// 자바스크립트 버전</span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params"><span class="keyword">type</span>, props, ...children</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>아직 감이 잘 안 오시나요?<br>걱정 마세요, 지금부터 자세히 설명해드릴겁니다.</p>
+<p>먼저, <code>React.createElement</code>는 <code>type</code>이라는 매개변수로 문자열이나 컴포넌트를 받는데요.<br>문자열의 경우 그 문자열에 일치하는 DOM 엘리먼트를 생성하는 생성자를 암시하는 것으로 인식하고, 컴포넌트의 경우 그냥 컴포넌트로 받아들입니다.<br>왜 문자열로 받냐구요? 왜냐하면 <code>React.createElement(HTMLInputElement, { type: &#39;text&#39; });</code> 처럼 작성하면 코드가 길어질 뿐더러, <code>HTMLInputElement</code> 같은 생성자 함수들은 <a href="https://html.spec.whatwg.org/#html-element-constructors" target="_blank" rel="noopener">일반적으로 호출할 수 없는 생성자 함수</a>이기 때문입니다(그래서 DOM을 다룰 때 <code>document.createElement</code>와 문자열을 사용하지요.).</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">React.createElement(<span class="string">'div'</span>, <span class="literal">null</span>); <span class="comment">// DOM의 div 엘리먼트 생성자로 인식</span></span><br><span class="line"></span><br><span class="line">React.createElement(MyComponent, <span class="literal">null</span>); <span class="comment">// 컴포넌트로 인식</span></span><br></pre></td></tr></table></figure>
+<p>다음으로 <code>props</code>라는 매개변수에 객체나 <code>null</code> 값을 받는데요,<br><code>type</code>이 문자열인 경우에는 나중에 DOM 트리에 지금 만든 리액트 엘리먼트를 DOM 엘리먼트로서 삽입할 때 <code>props</code>에 있는 프로퍼티들을 삽입할 DOM 엘리먼트의 어트리뷰트로서 설정되기 위해 다른 곳에 저장됩니다.<br><code>type</code>이 컴포넌트인 경우에는 나중에 컴포넌트를 랜더링 할 때 컴포넌트에 <code>props</code>로서 주어지기 위해 다른 곳에 저장됩니다.</p>
+<p>마지막으로는 <code>children</code>이라는 매개변수를 통해 리액트 엘리먼트의 자식들을 받는데요,<br><code>type</code>이 문자열인 경우에는 <code>props</code>의 경우와 마찬가지로 나중에 DOM 엘리먼트의 자식으로 설정되기 위해 따로 저장되며,<br><code>type</code>이 컴포넌트인 경우에는 <code>props</code>에서 받은 객체의 <code>children</code> 프로퍼티에 담기게 됩니다(<code>props.children = children</code>).</p>
+<p>이 모든 작업이 끝나면 <code>React.createElement</code>는 아까 언급한 <strong>다른 곳에 저장된 값들</strong>과 컴포넌트 등 랜더링 할 때 사용할 데이터들을 담고 있는 리액트 엘리먼트를 반환합니다.</p>
+<blockquote>
+<p><strong>NOTE:</strong></p>
+<p><code>props</code>가 <code>null</code>인 경우에는 리액트가 빈 객체인 <code>props</code>를 생성하고, 그 객체에 <code>children</code> 매개변수의 값을 담습니다.<br>또한, <code>children</code> 매개변수의 값의 길이가 1인 경우, <code>children</code> 매개변수에 들어있는 유일한 값을 꺼내서 <code>props</code>객체의 <code>children</code> 프로퍼티에 담습니다(<code>props.children = children[0]</code>).</p>
+</blockquote>
+<blockquote>
+<p><strong>NOTE:</strong></p>
+<p><code>React.createElement</code>로 리액트 엘리먼트를 만들 때 사용한 Boolean, Null, Undefined 타입의 값들은 랜더링되지 않습니다.<br>예를 들어, <code>React.createElement(&#39;p&#39;, null, true, &#39;hi&#39;, null)</code>은 <code>&lt;p&gt;hi&lt;/p&gt;</code> 로 랜더링 됩니다.</p>
+</blockquote>
+<h1 id="JSX와의-첫-만남"><a href="#JSX와의-첫-만남" class="headerlink" title="JSX와의 첫 만남"></a>JSX와의 첫 만남</h1><p>자, 그럼 이제 본격적으로 JSX에 대해 알아보도록 하겠습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id=<span class="string">'소개'</span>&gt;저는 JSX 입니다.&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure>
+<p>짠, 이게 JSX 로 작성된 코드입니다.</p>
+<p>JSX는 바벨과 같은 컴파일러에 의해 컴파일되는데요, 위의 코드는 아래와 같이 컴파일됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">React.createElement(<span class="string">'p'</span>, &#123; <span class="attr">id</span>: <span class="string">'소개'</span> &#125;, <span class="string">'저는 JSX 입니다.'</span>);</span><br></pre></td></tr></table></figure>
+<p>어떤가요? 감이 오시나요?<br>여러분들의 이해를 돕기 위해 제가 그림을 그려 보았습니다.</p>
+<p><img src="/images/Let-s-introduce-new-syntax-JSX/jsx.png" alt="React"></p>
+<p>문자로 정리해 드리자면, JSX는 아래와 같은 형식입니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;type propKey1=<span class="string">'value1'</span> propKey2=<span class="string">'value2'</span> &gt;...children&lt;<span class="regexp">/type&gt;</span></span><br></pre></td></tr></table></figure>
+<p>이 코드는 아래와 같이 컴파일됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">React.createElement(<span class="string">'type'</span>, &#123; <span class="attr">propKey1</span>: <span class="string">'value1'</span>, <span class="attr">propKey2</span>: <span class="string">'value2'</span> &#125;, <span class="string">'...children'</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>NOTE:</strong></p>
+<p>JSX 코드가 어떻게 컴파일되는 지 직접 시험해보고 싶으신 분들은 <a href="https://babeljs.io/repl" target="_blank" rel="noopener">여기</a>서 시험해보시면 됩니다.</p>
+</blockquote>
+<h1 id="JSX는-표현식입니다"><a href="#JSX는-표현식입니다" class="headerlink" title="JSX는 표현식입니다!"></a>JSX는 표현식입니다!</h1><p>이제 우리는 JSX가 무엇인지, 왜 만들어졌는지 알고 있습니다!<br>근데 JSX는 표현식일까요 구문일까요? 아니면 제 3의 어떤 것일까요?<br>JSX는 표현식입니다!<br>JSX가 <code>React.createElement</code>를 호출하는 표현식을 대체하는 문법 설탕이라는 점을 제가 이야기 한 것을 기억하시나요? 그게 바로 이유입니다.<br>JSX는 순수히 <code>React.createElement</code>를 호출하는 표현식을 대체해야 하기 때문에 함수 호출 표현식의 성질을 그대로 가지게 된 것이지요.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 아래 둘이 의미상 같기에</span></span><br><span class="line">&lt;p&gt;저는 아래의 코드와 같습니다.&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">React.createElement('p', null, '저는 아래의 코드와 같습니다.');</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 아래 둘도 의미상 같습니다.</span></span><br><span class="line"><span class="regexp">const p = React.createElement('p', null, '저는 아래의 코드와 같습니다.');</span></span><br><span class="line"><span class="regexp">const p = &lt;p&gt;저는 아래의 코드와 같습니다.&lt;/</span>p&gt;;</span><br></pre></td></tr></table></figure>
+<h1 id="JSX에-표현식-삽입하기"><a href="#JSX에-표현식-삽입하기" class="headerlink" title="JSX에 표현식 삽입하기"></a>JSX에 표현식 삽입하기</h1><p><code>React.createElement</code>를 사용하면 <code>React.createElement(&#39;p&#39;, null, Date.now())</code> 처럼 표현식을 사용할 수 있습니다.<br>그렇다면 JSX에서는 어떻게 해야 할까요? <code>React.createElement</code>를 대체하는 문법이라면 표현식 사용도 지원해야 하지 않을까요?<br>네, 그런 이유로 JSX 안에 표현식을 삽입하는 방법이 존재합니다. 바로 <code>{}</code>로 표현식을 감싸는 방법인데요. 백문이 불여일견, 설명해드리기 전에 코드를 먼저 보여드리도록 하겠습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id=&#123;generateId()&#125; className=&#123;<span class="string">'time '</span> + fontSize&#125;&gt;</span><br><span class="line">  &#123;<span class="built_in">Date</span>.now()&#125;</span><br><span class="line">&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>{}</code>로 감싼 표현식은 JSX의 두 자리에서 쓰일 수 있습니다.<br>그 두 자리는 바로 <code>props</code>의 프로퍼티를 정의하는 부분(<code>propName=propValue</code>)에서 <code>propValue</code>의 자리와 리액트 엘리먼트의 자식을 나열하는 자리(시작 태그와 종료 태그의 사이, <code>&lt;tag&gt;</code>와 <code>&lt;/tag&gt;</code> 사이)입니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Good :)</span></span><br><span class="line">&lt;input value=&#123;defaultValue&#125; /&gt;</span><br><span class="line">&lt;p&gt;&#123;words&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ Bad :(</span></span><br><span class="line"><span class="regexp">&lt;&#123;tagName&#125; /</span>&gt;</span><br><span class="line">&lt;input &#123;propName&#125;=&#123;propValue&#125; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 임의의 prop을 만들고 싶은 경우에는 아래와 같이 하시면 됩니다.</span></span><br><span class="line"><span class="keyword">const</span> props = &#123;</span><br><span class="line">  [propName]: propValue,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;input id=<span class="string">'my-input'</span> &#123;...props&#125; /&gt; <span class="comment">// React.createElement('input', &#123; id: 'my-input', ...props &#125;);</span></span><br></pre></td></tr></table></figure>
+<p>표현식을 JSX에 삽입하려면 <code>{}</code>로 감싸야 하지만, 문자열 리터럴을 삽입하는 경우에는 <code>{}</code>로 감싸지 않아도 됩니다(JSX가 마크업 언어의 문법을 존중하기 때문입니다.).</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">'email'</span> placeholder=<span class="string">'이메일을 입력해 주세요'</span> /&gt;</span><br><span class="line">&lt;p&gt;저는 텍스트입니다.&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>props</code>의 프로퍼티를 정의할 때 <code>true</code>를 값으로 넣어야 하는 경우에는 <code>true</code>를 생략할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input readonly /&gt; <span class="comment">// React.createElement('input', &#123; readonly: true &#125;); 로 컴파일됩니다.</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>자, 지금까지 JSX에 대해 알아보았습니다.<br>이번 포스트는 퀄리티가 조금 떨어지는 것 같아 아쉽네요, 조만간 다시 작성해야겠습니다.</p>
+<p>그럼 저는 다음 글인 <a href="">컴포넌트 길들이기</a>로 다시 찾아뵙도록 하겠습니다.<br>좋은 하루 되세요 :)))</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://environmentset.github.io/2019/02/15/Let-s-introduce-new-syntax-JSX/" data-id="cjs53lfyw0045u3jyaegin4bc" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100015357423292" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ENvironmentSet" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/02/13/Why-use-React/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">이전 글</strong>
+        <p class="article-nav-title">왜 리액트를 쓰나요?</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">최근 글</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/02/15/Let-s-introduce-new-syntax-JSX/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Let-s-introduce-new-syntax-JSX/frontend-frameworks.png)" alt="새로운 문법을 소개합니다!" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></p>
+                            <p class="item-title"><a href="/2019/02/15/Let-s-introduce-new-syntax-JSX/" class="title">새로운 문법을 소개합니다!</a></p>
+                            <p class="item-date"><time datetime="2019-02-14T20:49:51.000Z" itemprop="datePublished">2019-02-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/02/13/Why-use-React/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Why-use-React/react-purpose.png)" alt="왜 리액트를 쓰나요?" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></p>
+                            <p class="item-title"><a href="/2019/02/13/Why-use-React/" class="title">왜 리액트를 쓰나요?</a></p>
+                            <p class="item-date"><time datetime="2019-02-13T12:07:30.000Z" itemprop="datePublished">2019-02-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Learn-you-a-React-for-good-preface/React.png)" alt="Learn you a React for good - preface" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></p>
+                            <p class="item-title"><a href="/2019/02/12/Learn-you-a-React-for-good-preface/" class="title">Learn you a React for good - preface</a></p>
+                            <p class="item-date"><time datetime="2019-02-12T10:11:32.000Z" itemprop="datePublished">2019-02-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/You-don-t-know-Arguments-Object/CreateMappedArgumentsObject.png)" alt="You don&#39;t know everything of arguments object" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/31/You-don-t-know-Arguments-Object/" class="title">You don&#39;t know everything of arguments object</a></p>
+                            <p class="item-date"><time datetime="2019-01-31T14:20:13.000Z" itemprop="datePublished">2019-01-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/be-reactive.jpg)" alt="objectel: Event-Driven Reactive Programming Library" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/2019/01/17/objectel-Event-Driven-Reactive-Programming-Library/" class="title">objectel: Event-Driven Reactive Programming Library</a></p>
+                            <p class="item-date"><time datetime="2019-01-16T16:32:14.000Z" itemprop="datePublished">2019-01-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">카테고리</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notice/">Notice</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">1월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">9월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">6월 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">태그</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Driven-programming/">Event Driven programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functional-programming/">Functional programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notice/">Notice</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-programming/">Reactive programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TMI/">TMI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anti-pattern/">anti-pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/objectel/">objectel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proposal/">proposal</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Event-Driven-programming/" style="font-size: 10px;">Event Driven programming</a> <a href="/tags/Functional-programming/" style="font-size: 10px;">Functional programming</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Notice/" style="font-size: 10px;">Notice</a> <a href="/tags/React/" style="font-size: 16.67px;">React</a> <a href="/tags/Reactive-programming/" style="font-size: 10px;">Reactive programming</a> <a href="/tags/TMI/" style="font-size: 13.33px;">TMI</a> <a href="/tags/anti-pattern/" style="font-size: 10px;">anti-pattern</a> <a href="/tags/objectel/" style="font-size: 10px;">objectel</a> <a href="/tags/proposal/" style="font-size: 10px;">proposal</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Jaewon Seo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'environmentset-io';
+    
+    
+    var disqus_url = 'https://environmentset.github.io/2019/02/15/Let-s-introduce-new-syntax-JSX/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

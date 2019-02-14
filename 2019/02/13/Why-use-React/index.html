@@ -22,7 +22,7 @@
 <meta property="og:description" content="이 글은 Learn you a React for good 시리즈의 일부입니다.  새로운 것을 배울 때에는 무엇을 배우든, 배우기 이전에 그 용도와 사용하는 이유에 대해서 알아야 합니다.용도를 모르면 알맞는 상황에서 사용할 수 없고, 사용하는 이유를 모르면 안 쓰느니만 못 하기 때문입니다. 리액트의 용도는 리액트의 공식 홈페이지에 아주 큰 글씨로 써져 있습">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://environmentset.github.io/images/Why-use-React/react-purpose.png">
-<meta property="og:updated_time" content="2019-02-13T12:10:10.555Z">
+<meta property="og:updated_time" content="2019-02-14T20:49:17.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="왜 리액트를 쓰나요?">
 <meta name="twitter:description" content="이 글은 Learn you a React for good 시리즈의 일부입니다.  새로운 것을 배울 때에는 무엇을 배우든, 배우기 이전에 그 용도와 사용하는 이유에 대해서 알아야 합니다.용도를 모르면 알맞는 상황에서 사용할 수 없고, 사용하는 이유를 모르면 안 쓰느니만 못 하기 때문입니다. 리액트의 용도는 리액트의 공식 홈페이지에 아주 큰 글씨로 써져 있습">
@@ -197,10 +197,10 @@ ga('send', 'pageview');
 </blockquote>
 <p>그렇다면, 리액트는 왜 쓰는걸까요?<br>UI를 만들기 위한 라이브러리는 리액트만 존재하는 게 아닌 데 말이죠.<br>여러 가지의 이유가 있겠지만, 이 글에서는 가장 대표적인 세 가지 이유를 알아보도록 하겠습니다.</p>
 <h2 id="강력한-추상화-도구-컴포넌트"><a href="#강력한-추상화-도구-컴포넌트" class="headerlink" title="강력한 추상화 도구, 컴포넌트"></a>강력한 추상화 도구, 컴포넌트</h2><p>리액트로 만들어진 어플리케이션은 기본적으로 <strong>엘리먼트</strong>(Element)라는 <strong>화면에 보여질 것을 표현하는 요소</strong>로 구성되어 있습니다.<br>객체지향 프로그래밍 언어(OO Language)로 만들어진 프로그램이 <strong>객체</strong>로 구성되어 있는 것과 같이요.</p>
-<p>엥, 그럼 컴포넌트는 뭐냐고요?<br>너무 성급해 하지 마세요. 천천히 하자구요.<br>객체지향 프로그래밍 언어에는 생성자가 있습니다. 객체를 생성하고 초기화하는 역할을 맡은 요소지요.<br>마찬가지로, 리액트에는 리액트 엘리먼트를 생성하는 <strong>컴포넌트</strong>(Component)가 있습니다.<br>컴포넌트는 <code>props</code>라는 입력을 받고, 리액트 엘리먼트를 만들어냅니다.<br>즉, 어찌 되든 리액트 엘리먼트를 만들어 내기만 하면 되기 때문에 함수로도(함수 컴포넌트) 그리고 클래스(클래스 컴포넌트)로도 컴포넌트를 정의할 수 있습니다.</p>
+<p>엥, 그럼 컴포넌트는 뭐냐고요?<br>너무 성급해 하지 마세요. ㅇ천천히 하자구요.<br>객체지향 프로그래밍 언어에는 생성자가 있습니다. 객체를 생성하고 초기화하는 역할을 맡은 요소지요.<br>마찬가지로, 리액트에는 리액트 엘리먼트를 생성하는 <strong>컴포넌트</strong>(Component)가 있습니다.<br>컴포넌트는 <code>props</code>라는 입력을 받고, 리액트 엘리먼트를 만들어냅니다.<br>즉, 어찌 되든 리액트 엘리먼트를 만들어 내기만 하면 되기 때문에 함수로도(함수 컴포넌트) 그리고 클래스(클래스 컴포넌트)로도 컴포넌트를 정의할 수 있습니다.</p>
 <blockquote>
 <p><strong>NOTE</strong>:</p>
-<p>사실 리액트 어플리케이션은 <strong>노드</strong>라는 엘리먼트의 상위 개념인 요소로 이루어져 있습니다. 컴포넌트 또한 노드를 결과로 생성하고요.<br>하지만 노드가 무엇인지에 대해 정확하게 설명해드리려면 이후 소개해드릴 개념들까지 전부 끌어와야 하기 때문에, 지금은 엘리먼트라고 칭하도록 하겠습니다.<br>여담으로, 실제로 모든 엘리먼트는 노드이기도 합니다.</p>
+<p>사실 리액트 어플리케이션은 <strong>노드</strong>라는 리액트 엘리먼트의 상위 개념인 요소로 이루어져 있습니다. 컴포넌트 또한 노드를 결과로 생성하고요.<br>하지만 리액트 노드가 무엇인지에 대해 정확하게 설명해드리려면 이후 소개해드릴 개념들까지 전부 끌어와야 하기 때문에, 지금은 리액트 엘리먼트를 대신 사용하도록 하겠습니다.<br>여담으로, 실제로 모든 리액트 엘리먼트는 리액트 노드이기도 합니다.</p>
 </blockquote>
 <p>좋아요, 이제 컴포넌트가 뭔지 감을 잡으셨을겁니다.<br>그럼 지금부터는 컴포넌트가 왜 중요한 개념인지 알아보겠습니다.</p>
 <p>먼저 결론부터 말씀드리자면, 컴포넌트는 <strong>복잡한 UI단을 추상화</strong> 해준다는 점에서 중요합니다.<br>그렇다면, 도대체 왜 추상화를 해준다는 점이 중요할까요? 어려운 질문이지만 지금부터 그 이유를 알아가도록 하겠습니다.<br>컴퓨터를 이용해 해결하는 문제들은 복잡한 문제들입니다.<br>(만약 간단한 문제였다면 컴퓨터를 쓸 이유조차 없었겠죠.)<br>그럼 복잡한 문제들을 어떻게 해결할까요?<br>아시다시피, 컴퓨터로 문제를 해결하기 위한 방법을 제시하는 방법론을 프로그래밍 패러다임이라 부릅니다.<br>즉, 프로그래밍 패러다임들은 앞에서 이야기한 복잡한 문제들을 해결하는 방법을 제시하고 있습니다.<br>모든 프로그래밍 패러다임의 해답을 볼 수는 없으니 잘 알려진 프로그래밍 패러다임인 객체지향(Object-Oriented), 명령중심(혹은 절차지향, Imperative), 함수형(Functional)의 해답을 살펴보도록 하겠습니다.<br>흥미롭게도, 같은 언어를 사용하여 작성한다고 하더라도 프로그램의 구조가 극과 극을 달릴 정도로 다르게 되는 이 세 패러다임이 복잡한 문제를 해결하는 방법의 <strong>기초적인 아이디어</strong>는 전부 같습니다.<br>세 패러다임 모두 각자의 개념을 통해 <strong>문제를 작게 쪼개고, 해결한 뒤, 그 해결법을 다시 합쳐 복잡한 문제를 해결</strong>합니다.</p>
@@ -236,7 +236,7 @@ ga('send', 'pageview');
 </blockquote>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fromEvent &#125; <span class="keyword">from</span> <span class="string">'rxjs'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">'rxjs/operators'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> inputElement = <span class="built_in">document</span>.getElementById(<span class="string">'textInput'</span>);</span><br><span class="line"><span class="keyword">const</span> input$ = fromEvent(inputElement, <span class="string">'change'</span>); <span class="comment">// inputElement에서 'change' 이벤트가 발생할 때 마다 그 이벤트를 자신의 구독자(subscriber)에게 전달하는 옵져버블을 만듭니다.</span></span><br><span class="line"><span class="keyword">const</span> text$ = input$.pipe(map(<span class="function"><span class="params">event</span> =&gt;</span> event.target.value)); <span class="comment">// input$가 값을 전달할 때 마다 주어진 함수를 이용해 그 값을 변형시킨 후 다시 전달하는 옵져버블을 만듭니다.</span></span><br><span class="line"></span><br><span class="line">text$.subscribe(<span class="built_in">console</span>.log); <span class="comment">// text$ 옵져버블이 전달한 값을 출력합니다.</span></span><br></pre></td></tr></table></figure>
 <p>짜잔, 리액티브 프로그래밍을 하면 이렇게 데이터 플로우를 선언하여 비동기, 동기 할 것 없이 변화하는 값들을 쉽게 다룰 수 있습니다.<br>듣기에는 정말 좋아 보이지만, 리액티브 프로그래밍에도 몇몇 문제가 있습니다.<br>가장 큰 문제는, 프로그래머가 옵져버블 간의 구독(subscription)에 많이 신경써야 합니다.<br><a href="https://github.com/cyclejs/cyclejs/wiki/Understanding-Signals-vs-Events" target="_blank" rel="noopener">시그널(singal) 옵져버블</a>이 아닌 <a href="https://github.com/cyclejs/cyclejs/wiki/Understanding-Signals-vs-Events" target="_blank" rel="noopener">이벤트(event) 옵져버블</a> 들은 구독 되는 시점이 중요하기 때문입니다.<br>이는 옵져버블과 그 주위 환경을 프로그래머가 다룸으로서 생기는 문제로, 리액트는 옵져버블을 감춤으로서 이 문제를 해결했습니다.<br>즉, 간단하게 표현하면 리액트는 다음과 같이 구성된 것 입니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyComponent</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 여기에 멋진 컴포넌트가 있다고 가정하세요.</span></span><br><span class="line"></span><br><span class="line">props$.map(MyComponent) <span class="comment">// props 들의 옵져버블이 props를 전달할 때 마다 그 props를 가지고 컴포넌트를 호출합니다. 결과적으로 props들의 옵져버블을 엘리먼트들의 옵져버블로 만듭니다.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyComponent</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 여기에 멋진 컴포넌트가 있다고 가정하세요.</span></span><br><span class="line"></span><br><span class="line">props$.map(MyComponent) <span class="comment">// props 들의 옵져버블이 props를 전달할 때 마다 그 props를 가지고 컴포넌트를 호출합니다. 결과적으로 props들의 옵져버블을 리액트 엘리먼트들의 옵져버블로 만듭니다.</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>NOTE:</strong></p>
 <p>지금까지 소개해드린 리액트의 기능이 매우 적어, 예시로 보여드리기에는 조금 부족한 감이 있는 <code>props</code>로 보여드리게 되었습니다.<br>그렇기에 리액트를 처음 접하신다면 이해하시기 조금 어려우실겁니다. 그러니 너무 이해하려 하지 마시고, 어느 정도 배우신 후에 다시 돌아와서 이 문단을 살펴보세요.<br>만약 <code>state</code>를 아신다면 이 문장이 더 도움이 될 겁니다. “컴포넌트의 <code>state</code>가 변경되면 리액트는 그 컴포넌트의 메서드를 호출함으로서 다시 랜더링을 요청합니다. 네, 리액트는 거대한 옵져버블이고 우리의 컴포넌트는 그 옵져버블을 구독하는 옵져버(Observer) 일 뿐입니다. 리액티브 프로그래밍의 옵져버블이나 GoF의 옵져버 패턴에서 인터페이스만 바뀐 것이지요.”</p>
@@ -249,11 +249,11 @@ ga('send', 'pageview');
 <p>리액트로 만들어진 어플리케이션은 기본적으로 <strong>엘리먼트</strong>(Element)라는 <strong>화면에 보여질 것을 표현하는 요소</strong>로 구성되어 있습니다.</p>
 </blockquote>
 <p>무언가 비슷한 것이 떠오르지 않으시나요?<br>네, 바로 문서 객체 모델(Document Object Model, DOM) 입니다.<br>DOM은 현재 문서를 <strong>DOM 노드</strong>(Node)들의 <a href="https://gmlwjd9405.github.io/2018/08/12/data-structure-tree.html" target="_blank" rel="noopener">트리</a>(Tree)로 표현하지요.</p>
-<p>왜 리액트는 DOM 노드를 사용하지 않고, 자체적인 엘리먼트들을 통해 화면을 구성할까요?<br>사실, 리액트는 DOM을 내부적으로 사용합니다. 그러나 우리에게는 노출시켜주지 않는 것일 뿐 입니다.<br>왜냐하면 DOM은 변경에 민감하고, 어플리케이션의 성능에 큰 영향을 주기 때문에 직접 다루는 일은 위험하기 때문이죠.<br>그걸 알고 있는 리액트는 엘리먼트로 논리적인, 가상의 DOM 트리를 프로그래머가 다루게 하고 자신은 프로그래머가 만들어낸 가상의 DOM 트리를 분석하여 DOM 트리를 정교하고 똑똑하게(필요한 부분만 업데이트 하거나, 당장 필요하지 않은 업데이트는 미루고, 변경 작업을 스케쥴링 하는 등 여러 최적화를 합니다) 다루지요.</p>
+<p>왜 리액트는 DOM 노드를 사용하지 않고, 자체적인 엘리먼트들을 통해 화면을 구성할까요?<br>사실, 리액트는 DOM을 내부적으로 사용합니다. 그러나 우리에게는 노출시켜주지 않는 것일 뿐 입니다.<br>왜냐하면 DOM은 변경에 민감하고, 어플리케이션의 성능에 큰 영향을 주기 때문에 직접 다루는 일은 위험하기 때문이죠.<br>그걸 알고 있는 리액트는 리액트 엘리먼트로 논리적인, 가상의 DOM 트리를 프로그래머가 다루게 하고 자신은 프로그래머가 만들어낸 가상의 DOM 트리를 분석하여 DOM 트리를 정교하고 똑똑하게(필요한 부분만 업데이트 하거나, 당장 필요하지 않은 업데이트는 미루고, 변경 작업을 스케쥴링 하는 등 여러 최적화를 합니다) 다루지요.</p>
 <p>즉, 리액트는 개발자가 신경쓰기 힘든 사소한 부분들을 직접 해결해주어 개발자가 어플리케이션 개발에 집중할 수 있게 해줍니다. 개발자들은 데이터를 다루고 화면을 구성하기 위해 고용되었지, DOM 트리랑 최적화 싸움 하라고 고용된 건 아니니까요(고용주 입장에서요, 최적화도 물론 중요하지만 프로덕트가 만들어지는 게 더 중요하지요.).</p>
 <hr>
 <p>자, 지금까지 리액트를 사용하는 이유들에 대해 알아보았습니다.<br>이 외에도 몇몇 이유가 더 있지만 이 정도로도 충분히 동기를 부여해드렸다고 생각하기 때문에 굳이 다루지 않도록 하겠습니다.</p>
-<p>그럼 저는 다음 글인 <a href="">새로운 문법을 소개합니다!</a> 로 다시 찾아뵙도록 하겠습니다.<br>좋은 하루 되세요 :)))</p>
+<p>그럼 저는 다음 글인 <a href="https://environmentset.github.io/2019/02/15/Let-s-introduce-new-syntax-JSX/">새로운 문법을 소개합니다!</a>로 다시 찾아뵙도록 하겠습니다.<br>좋은 하루 되세요 :)))</p>
 
         </div>
         <footer class="article-footer">
@@ -261,7 +261,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="https://environmentset.github.io/2019/02/13/Why-use-React/" data-id="cjs35rfp800446gjysrgbsc06" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+    <a data-url="https://environmentset.github.io/2019/02/13/Why-use-React/" data-id="cjs53lfz10049u3jyntvg1cra" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -367,6 +367,16 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
+        <a href="/2019/02/15/Let-s-introduce-new-syntax-JSX/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">다은 글</strong>
+        <p class="article-nav-title">
+        
+            새로운 문법을 소개합니다!
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/2019/02/12/Learn-you-a-React-for-good-preface/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">이전 글</strong>
@@ -388,6 +398,26 @@ ga('send', 'pageview');
         <h3 class="widget-title">최근 글</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/02/15/Let-s-introduce-new-syntax-JSX/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Let-s-introduce-new-syntax-JSX/frontend-frameworks.png)" alt="새로운 문법을 소개합니다!" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a></p>
+                            <p class="item-title"><a href="/2019/02/15/Let-s-introduce-new-syntax-JSX/" class="title">새로운 문법을 소개합니다!</a></p>
+                            <p class="item-date"><time datetime="2019-02-14T20:49:51.000Z" itemprop="datePublished">2019-02-15</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -469,26 +499,6 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/01/06/Stop-using-CSS-with-React/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/images/stop-using-css-with-react.jpeg)" alt="Stop using CSS with React" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Documents-About-JavaScript/">JavaScript</a></p>
-                            <p class="item-title"><a href="/2019/01/06/Stop-using-CSS-with-React/" class="title">Stop using CSS with React</a></p>
-                            <p class="item-date"><time datetime="2019-01-05T15:20:04.000Z" itemprop="datePublished">2019-01-06</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -498,7 +508,7 @@ ga('send', 'pageview');
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">카테고리</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><span class="category-list-count">8</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notice/">Notice</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/">JavaScript</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Learn-you-a-React-for-good/">Learn you a React for good</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Documents-About-JavaScript/Too-Much-Infomation/">TMI</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notice/">Notice</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -508,7 +518,7 @@ ga('send', 'pageview');
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">아카이브</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">1월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">9월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">6월 2018</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">1월 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">9월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">6월 2018</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -518,7 +528,7 @@ ga('send', 'pageview');
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">태그</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Driven-programming/">Event Driven programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functional-programming/">Functional programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notice/">Notice</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-programming/">Reactive programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TMI/">TMI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anti-pattern/">anti-pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/objectel/">objectel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proposal/">proposal</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Driven-programming/">Event Driven programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Functional-programming/">Functional programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notice/">Notice</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-programming/">Reactive programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TMI/">TMI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anti-pattern/">anti-pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/objectel/">objectel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proposal/">proposal</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -528,7 +538,7 @@ ga('send', 'pageview');
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">태그 클라우드</h3>
         <div class="widget tagcloud">
-            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Event-Driven-programming/" style="font-size: 10px;">Event Driven programming</a> <a href="/tags/Functional-programming/" style="font-size: 10px;">Functional programming</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Notice/" style="font-size: 10px;">Notice</a> <a href="/tags/React/" style="font-size: 15px;">React</a> <a href="/tags/Reactive-programming/" style="font-size: 10px;">Reactive programming</a> <a href="/tags/TMI/" style="font-size: 15px;">TMI</a> <a href="/tags/anti-pattern/" style="font-size: 10px;">anti-pattern</a> <a href="/tags/objectel/" style="font-size: 10px;">objectel</a> <a href="/tags/proposal/" style="font-size: 10px;">proposal</a>
+            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Event-Driven-programming/" style="font-size: 10px;">Event Driven programming</a> <a href="/tags/Functional-programming/" style="font-size: 10px;">Functional programming</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Notice/" style="font-size: 10px;">Notice</a> <a href="/tags/React/" style="font-size: 16.67px;">React</a> <a href="/tags/Reactive-programming/" style="font-size: 10px;">Reactive programming</a> <a href="/tags/TMI/" style="font-size: 13.33px;">TMI</a> <a href="/tags/anti-pattern/" style="font-size: 10px;">anti-pattern</a> <a href="/tags/objectel/" style="font-size: 10px;">objectel</a> <a href="/tags/proposal/" style="font-size: 10px;">proposal</a>
         </div>
     </div>
 
